@@ -4,14 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>阵容推荐 · 洛克王国攻略站</title>
+    <meta name="description" content="洛克王国：世界PVE/PVP阵容推荐，新手开荒、雨天速推、恶翼强攻、冰控消耗等队伍配置，支持一键复制阵容码。">
+    <meta name="keywords" content="洛克王国世界,阵容推荐,PVE,PVP,阵容码,开荒,天梯">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚔️</text></svg>">
     <style>
         * { margin:0; padding:0; box-sizing:border-box; }
         body { font-family:'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif; background:#1a1a2e; color:#e0e0e0; }
         a { text-decoration:none; color:#0ef; }
-        .navbar { display:flex; justify-content:space-between; align-items:center; padding:1rem 5%; background:#16213e; position:sticky; top:0; z-index:100; }
+        .navbar { display:flex; justify-content:space-between; align-items:center; padding:1rem 5%; background:#16213e; position:sticky; top:0; z-index:100; flex-wrap:wrap; }
         .logo { font-size:1.8rem; font-weight:bold; color:#0ef; } .logo span { color:#e94560; }
-        .nav-links { display:flex; gap:2rem; } .nav-links a { color:#e0e0e0; font-weight:500; } .nav-links a:hover { color:#0ef; }
+        .nav-links { display:flex; gap:1.5rem; flex-wrap:wrap; } .nav-links a { color:#e0e0e0; font-weight:500; } .nav-links a:hover { color:#0ef; }
         .container { max-width:1100px; margin:2rem auto; padding:0 1rem; }
         .page-title { font-size:2rem; margin-bottom:0.5rem; } .page-sub { color:#aaa; margin-bottom:2rem; }
         .team-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(480px,1fr)); gap:1.5rem; }
@@ -54,43 +56,43 @@
         <p class="page-sub">PVE 开荒 & PVP 天梯 · 抄作业专区</p>
         <div class="team-grid" id="teamGrid"></div>
     </div>
-    <footer class="footer" style="text-align:center; padding:2rem; background:#16213e; margin-top:3rem; color:#888;">
-        <p>© 2026 洛克王国：世界玩家攻略站 | 阵容搭配仅供参考，可根据池子调整</p>
+    <footer class="footer" style="text-align:center;padding:2rem;background:#16213e;margin-top:3rem;color:#888;">
+        <p>© 2026 洛克王国：世界玩家攻略站 | 阵容搭配仅供参考</p>
     </footer>
 
     <script>
         const teamsData = [
             { id:1, name:"新手开荒阵容", tag:"PVE开荒", tagClass:"tag-pve", desc:"零氪可用，通关主线无压力", detail:"此阵容以初始火主「火花」为核心输出，水蓝提供回复，翠芽上麻痹粉控场，石甲龟做物理盾，电击鼠高速清场，幽灵娃娃补盲。前期资源优先给火花进化。", pokemons:[
-                {id:1, name:"火花", role:"核心输出", skill:"火苗, 蓄能焰火", nature:"胆小(+速-攻)", item:"木炭", alt:"可由叮叮恶魔替代"},
-                {id:2, name:"水蓝", role:"回复辅助", skill:"水流环, 求雨", nature:"温和(+特防-攻)", item:"神秘水滴", alt:"独角兽"},
-                {id:3, name:"翠芽", role:"干扰控场", skill:"麻痹粉, 飞叶快刀", nature:"大胆(+防-攻)", item:"大根茎", alt:"无"},
-                {id:8, name:"石甲龟", role:"物理坦克", skill:"守住, 地震", nature:"固执(+攻-特攻)", item:"软沙", alt:"岩甲巨龟"},
-                {id:9, name:"电击鼠", role:"高速收割", skill:"十万伏特, 电光一闪", nature:"急躁(+速-防)", item:"磁铁", alt:"无"},
-                {id:10, name:"幽灵娃娃", role:"特殊炮台", skill:"暗影球, 食梦", nature:"内敛(+特攻-攻)", item:"诅咒之符", alt:"暗翼兽"}
+                {id:1, name:"火花", role:"核心输出", skill:"火苗, 蓄能焰火", nature:"胆小", item:"木炭", alt:"叮叮恶魔"},
+                {id:2, name:"水蓝", role:"回复辅助", skill:"水流环, 求雨", nature:"温和", item:"神秘水滴", alt:"独角兽"},
+                {id:3, name:"翠芽", role:"干扰控场", skill:"麻痹粉, 飞叶快刀", nature:"大胆", item:"大根茎", alt:"无"},
+                {id:8, name:"石甲龟", role:"物理坦克", skill:"守住, 地震", nature:"固执", item:"软沙", alt:"岩甲巨龟"},
+                {id:9, name:"电击鼠", role:"高速收割", skill:"十万伏特, 电光一闪", nature:"急躁", item:"磁铁", alt:"无"},
+                {id:10, name:"幽灵娃娃", role:"特殊炮台", skill:"暗影球, 食梦", nature:"内敛", item:"诅咒之符", alt:"暗翼兽"}
             ]},
             { id:2, name:"雨天速推队", tag:"PVE速刷", tagClass:"tag-pve", desc:"利用雨天加成，高效清图", detail:"独角兽开启雨天，水蓝水系技能威力翻倍，暗翼兽高速先手，电击鼠打雷必中，翠芽光合作用回复，石甲龟地震补地面打击面。", pokemons:[
-                {id:5, name:"独角兽", role:"天气手", skill:"求雨, 龙之舞", nature:"温和(+特防-攻)", item:"湿岩石", alt:"无"},
-                {id:2, name:"水蓝", role:"雨天打手", skill:"水枪, 冲浪", nature:"胆小(+速-攻)", item:"神秘水滴", alt:"浪涛兽"},
-                {id:7, name:"暗翼兽", role:"先手速攻", skill:"暗袭, 翅膀攻击", nature:"爽朗(+速-特攻)", item:"锐利鸟嘴", alt:"叮叮恶魔"},
-                {id:9, name:"电击鼠", role:"必中打雷", skill:"十万伏特, 打雷", nature:"急躁(+速-防)", item:"磁铁", alt:"雷电鼠王"},
-                {id:3, name:"翠芽", role:"回复续航", skill:"光合作用, 寄生种子", nature:"大胆(+防-攻)", item:"大根茎", alt:"无"},
-                {id:8, name:"石甲龟", role:"地面补盲", skill:"地震, 落石", nature:"固执(+攻-特攻)", item:"软沙", alt:"岩甲巨龟"}
+                {id:5, name:"独角兽", role:"天气手", skill:"求雨, 龙之舞", nature:"温和", item:"湿岩石", alt:"无"},
+                {id:2, name:"水蓝", role:"雨天打手", skill:"水枪, 冲浪", nature:"胆小", item:"神秘水滴", alt:"浪涛兽"},
+                {id:7, name:"暗翼兽", role:"先手速攻", skill:"暗袭, 翅膀攻击", nature:"爽朗", item:"锐利鸟嘴", alt:"叮叮恶魔"},
+                {id:9, name:"电击鼠", role:"必中打雷", skill:"十万伏特, 打雷", nature:"急躁", item:"磁铁", alt:"雷电鼠王"},
+                {id:3, name:"翠芽", role:"回复续航", skill:"光合作用, 寄生种子", nature:"大胆", item:"大根茎", alt:"无"},
+                {id:8, name:"石甲龟", role:"地面补盲", skill:"地震, 落石", nature:"固执", item:"软沙", alt:"岩甲巨龟"}
             ]},
             { id:3, name:"恶翼强攻队", tag:"PVP天梯", tagClass:"tag-pvp", desc:"利用高速恶翼双属性压制", detail:"叮叮恶魔极速先手暗袭，暗翼兽追打，幽灵娃娃联防格斗系，冰布丁反制龙系，独角兽提供龙舞强化，水蓝求雨防水系。", pokemons:[
-                {id:4, name:"叮叮恶魔", role:"极速核心", skill:"暗袭, 空气斩", nature:"爽朗(+速-特攻)", item:"生命玉", alt:"可由暗翼兽暂代"},
-                {id:7, name:"暗翼兽", role:"副攻手", skill:"暗袭, 高速移动", nature:"爽朗(+速-特攻)", item:"锐利鸟嘴", alt:"无"},
-                {id:10, name:"幽灵娃娃", role:"特防盾", skill:"暗影球, 诅咒", nature:"温和(+特防-攻)", item:"进化奇石", alt:"无"},
-                {id:6, name:"冰布丁", role:"特攻炮台", skill:"暴风雪, 冰冻之风", nature:"内敛(+特攻-攻)", item:"不融冰", alt:"无"},
-                {id:5, name:"独角兽", role:"强化手", skill:"龙之舞, 龙息", nature:"爽朗(+速-特攻)", item:"龙之牙", alt:"圣角天马"},
-                {id:2, name:"水蓝", role:"天气干扰", skill:"求雨, 冲浪", nature:"胆小(+速-攻)", item:"湿岩石", alt:"浪涛兽"}
+                {id:4, name:"叮叮恶魔", role:"极速核心", skill:"暗袭, 空气斩", nature:"爽朗", item:"生命玉", alt:"暗翼兽"},
+                {id:7, name:"暗翼兽", role:"副攻手", skill:"暗袭, 高速移动", nature:"爽朗", item:"锐利鸟嘴", alt:"无"},
+                {id:10, name:"幽灵娃娃", role:"特防盾", skill:"暗影球, 诅咒", nature:"温和", item:"进化奇石", alt:"无"},
+                {id:6, name:"冰布丁", role:"特攻炮台", skill:"暴风雪, 冰冻之风", nature:"内敛", item:"不融冰", alt:"无"},
+                {id:5, name:"独角兽", role:"强化手", skill:"龙之舞, 龙息", nature:"爽朗", item:"龙之牙", alt:"圣角天马"},
+                {id:2, name:"水蓝", role:"天气干扰", skill:"求雨, 冲浪", nature:"胆小", item:"湿岩石", alt:"浪涛兽"}
             ]},
             { id:4, name:"冰控消耗队", tag:"PVP天梯", tagClass:"tag-pvp", desc:"冰系控场+消耗，拖后期决胜", detail:"冰布丁极光幕开启团队减伤，冰冻之风控速，幽灵娃娃挑拨封住对面变化技，翠芽寄生种子消耗，石甲龟守住拖回合，火花负责收割残局。", pokemons:[
-                {id:6, name:"冰布丁", role:"核心控场", skill:"冰冻之风, 极光幕", nature:"温和(+特防-攻)", item:"光之黏土", alt:"无"},
-                {id:10, name:"幽灵娃娃", role:"挑拨封技", skill:"挑拨, 暗影球", nature:"胆小(+速-攻)", item:"进化奇石", alt:"无"},
-                {id:3, name:"翠芽", role:"消耗手", skill:"寄生种子, 光合作用", nature:"大胆(+防-攻)", item:"大根茎", alt:"无"},
-                {id:8, name:"石甲龟", role:"物理盾", skill:"守住, 地震", nature:"固执(+攻-特攻)", item:"凸凸头盔", alt:"岩甲巨龟"},
-                {id:1, name:"火花", role:"收割手", skill:"火花踢, 蓄能焰火", nature:"固执(+攻-特攻)", item:"木炭", alt:"烈火兽"},
-                {id:5, name:"独角兽", role:"龙舞清场", skill:"龙之舞, 龙息", nature:"爽朗(+速-特攻)", item:"龙之牙", alt:"圣角天马"}
+                {id:6, name:"冰布丁", role:"核心控场", skill:"冰冻之风, 极光幕", nature:"温和", item:"光之黏土", alt:"无"},
+                {id:10, name:"幽灵娃娃", role:"挑拨封技", skill:"挑拨, 暗影球", nature:"胆小", item:"进化奇石", alt:"无"},
+                {id:3, name:"翠芽", role:"消耗手", skill:"寄生种子, 光合作用", nature:"大胆", item:"大根茎", alt:"无"},
+                {id:8, name:"石甲龟", role:"物理盾", skill:"守住, 地震", nature:"固执", item:"凸凸头盔", alt:"岩甲巨龟"},
+                {id:1, name:"火花", role:"收割手", skill:"火花踢, 蓄能焰火", nature:"固执", item:"木炭", alt:"烈火兽"},
+                {id:5, name:"独角兽", role:"龙舞清场", skill:"龙之舞, 龙息", nature:"爽朗", item:"龙之牙", alt:"圣角天马"}
             ]}
         ];
 
@@ -117,9 +119,7 @@
             `).join('');
         }
 
-        function toggleTeam(id) {
-            document.getElementById(`team-${id}`).classList.toggle('open');
-        }
+        function toggleTeam(id) { document.getElementById(`team-${id}`).classList.toggle('open'); }
 
         function copyTeam(teamName, pokemons) {
             let text = `【${teamName}】\n`;
