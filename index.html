@@ -202,6 +202,8 @@
             }
         }
     </style>
+    <!-- 引入公共数据，使搜索可以使用精灵数据 -->
+    <script src="data.js"></script>
 </head>
 <body>
 
@@ -211,7 +213,7 @@
             <a href="index.html">首页</a>
             <a href="pokedex.html">精灵图鉴</a>
             <a href="teams.html">阵容推荐</a>
-            <a href="#">资源地图</a>
+            <a href="map.html">资源地图</a>
         </div>
     </nav>
 
@@ -219,8 +221,8 @@
         <h1>《洛克王国：世界》玩家攻略站</h1>
         <p>新手开荒 · 阵容搭配 · 精灵图鉴 · BOSS打法</p>
         <div class="search-box">
-            <input type="text" placeholder="搜索精灵、阵容或攻略...">
-            <button>🔍 搜索</button>
+            <input type="text" id="heroSearch" placeholder="搜索精灵、阵容或攻略...">
+            <button id="heroSearchBtn">🔍 搜索</button>
         </div>
     </section>
 
@@ -295,5 +297,38 @@
         <p>© 2026 洛克王国：世界玩家攻略站 | 内容仅供学习交流，版权归原作者所有</p>
     </footer>
 
+    <script>
+        // 首页搜索框联动 - 支持精灵名称或编号搜索，跳转到详情页
+        (function() {
+            const searchInput = document.getElementById('heroSearch');
+            const searchBtn = document.getElementById('heroSearchBtn');
+
+            function doSearch() {
+                const keyword = searchInput.value.trim().toLowerCase();
+                if (!keyword) {
+                    alert('请输入精灵名称或编号');
+                    return;
+                }
+                // 使用公共数据 pokemonData（来自 data.js）
+                if (typeof pokemonData !== 'undefined') {
+                    const found = pokemonData.find(p => 
+                        p.name.toLowerCase().includes(keyword) || p.number.toString() === keyword
+                    );
+                    if (found) {
+                        window.location.href = `pokemon-detail.html?id=${found.id}`;
+                        return;
+                    }
+                }
+                alert('未找到匹配的精灵，请尝试其他关键词');
+            }
+
+            searchBtn.addEventListener('click', doSearch);
+            searchInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    doSearch();
+                }
+            });
+        })();
+    </script>
 </body>
 </html>
