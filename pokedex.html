@@ -177,49 +177,108 @@
 
     <script>
         // ==================== 精灵数据（模拟） ====================
-        const pokemonData = [
-            {
-                id:1, name:"叮叮恶魔", number:25,
-                type:["恶","翼"], stage:"最终",
-                race:{hp:80, atk:120, def:70, spa:90, spd:65, spe:110},
-                total:535,
-                catch:"暗影森林深处 · 夜晚出现",
-                skills:["暗袭","飞空斩","恶魔契约","诡计"]
-            },
-            {
-                id:2, name:"独角兽", number:12,
-                type:["龙","水"], stage:"一阶",
-                race:{hp:100, atk:80, def:100, spa:90, spd:90, spe:60},
-                total:520,
-                catch:"圣湖遗迹 · 雨天概率出现",
-                skills:["水枪","龙息","治愈波动","光之壁"]
-            },
-            {
-                id:3, name:"火花", number:1,
-                type:["火"], stage:"基础",
-                race:{hp:50, atk:55, def:45, spa:60, spd:50, spe:65},
-                total:325,
-                catch:"初始伙伴 / 火山脚下",
-                skills:["火苗","烟幕","火花踢"]
-            },
-            {
-                id:4, name:"冰布丁", number:44,
-                type:["冰"], stage:"最终",
-                race:{hp:80, atk:50, def:60, spa:110, spd:100, spe:90},
-                total:490,
-                catch:"极冻雪原 · 任何时段",
-                skills:["冰冻之风","极光幕","暴风雪","冰雹"]
-            },
-            {
-                id:5, name:"暗翼兽", number:78,
-                type:["恶","翼"], stage:"一阶",
-                race:{hp:65, atk:100, def:55, spa:70, spd:55, spe:130},
-                total:475,
-                catch:"迷失之塔顶层 · 夜晚概率出现",
-                skills:["暗袭","翅膀攻击","高速移动"]
-            }
-        ];
-
+       const pokemonData = [
+    {
+        id:1, name:"火花", number:1,
+        type:["火"], stage:"基础",
+        race:{hp:50, atk:55, def:45, spa:60, spd:50, spe:65},
+        total:325,
+        catch:"初始伙伴选择 / 火山脚下遇见",
+        skills:["火苗","烟幕","火花踢","蓄能焰火"],
+        evolution: { next: "烈火兽", method: "等级16进化" },
+        description:"热情而忠诚的火焰精灵，身上的火焰会随着心情变化。新手训练家最可靠的伙伴之一。"
+    },
+    {
+        id:2, name:"水蓝", number:4,
+        type:["水"], stage:"基础",
+        race:{hp:55, atk:45, def:60, spa:65, spd:55, spe:45},
+        total:325,
+        catch:"初始伙伴选择 / 湖泊浅滩",
+        skills:["水枪","泡沫","水流环","求雨"],
+        evolution: { next: "浪涛兽", method: "等级16进化" },
+        description:"性格温和的水系精灵，能净化水质。在水中移动时几乎不发出声音。"
+    },
+    {
+        id:3, name:"翠芽", number:7,
+        type:["草"], stage:"基础",
+        race:{hp:50, atk:50, def:65, spa:60, spd:60, spe:40},
+        total:325,
+        catch:"初始伙伴选择 / 密林小径",
+        skills:["飞叶快刀","光合作用","藤鞭","麻痹粉"],
+        evolution: { next: "翠藤精", method: "等级16进化" },
+        description:"头上嫩芽会预知天气的草系精灵，最喜欢温暖有阳光的地方。"
+    },
+    {
+        id:4, name:"叮叮恶魔", number:25,
+        type:["恶","翼"], stage:"最终",
+        race:{hp:80, atk:120, def:70, spa:90, spd:65, spe:110},
+        total:535,
+        catch:"暗影森林深处 · 夜晚概率出现（稀有）",
+        skills:["暗袭","飞空斩","恶魔契约","诡计","暗影球","空气斩"],
+        evolution: { prev: "叮叮蝠", method: "使用暗之石进化" },
+        description:"栖息在暗影森林深处的恶翼双属性精灵，速度极快，擅长先手攻击。"
+    },
+    {
+        id:5, name:"独角兽", number:12,
+        type:["龙","水"], stage:"一阶",
+        race:{hp:100, atk:80, def:100, spa:90, spd:90, spe:60},
+        total:520,
+        catch:"圣湖遗迹 · 雨天概率出现",
+        skills:["水枪","龙息","治愈波动","光之壁","龙之舞"],
+        evolution: { next: "圣角天马", method: "等级40进化" },
+        description:"拥有龙族血统的高贵精灵，角上的光芒能够治愈伤痛。"
+    },
+    {
+        id:6, name:"冰布丁", number:44,
+        type:["冰"], stage:"最终",
+        race:{hp:80, atk:50, def:60, spa:110, spd:100, spe:90},
+        total:490,
+        catch:"极冻雪原 · 任何时段",
+        skills:["冰冻之风","极光幕","暴风雪","冰雹","绝对零度"],
+        evolution: { prev: "冰团子", method: "携带不融冰升级进化" },
+        description:"身体柔软如布丁，却能释放极寒气息。在雪原中几乎与环境融为一体。"
+    },
+    {
+        id:7, name:"暗翼兽", number:78,
+        type:["恶","翼"], stage:"一阶",
+        race:{hp:65, atk:100, def:55, spa:70, spd:55, spe:130},
+        total:475,
+        catch:"迷失之塔顶层 · 夜晚概率出现",
+        skills:["暗袭","翅膀攻击","高速移动","黑夜魔影"],
+        evolution: { next: "暗翼龙王", method: "等级36进化" },
+        description:"在黑暗中无声飞行的掠食者，速度极快，猎物难以察觉它的靠近。"
+    },
+    {
+        id:8, name:"石甲龟", number:33,
+        type:["岩石","地面"], stage:"基础",
+        race:{hp:70, atk:65, def:100, spa:40, spd:55, spe:25},
+        total:355,
+        catch:"岩石洞穴 · 全天出现",
+        skills:["落石","变硬","地震","守住"],
+        evolution: { next: "岩甲巨龟", method: "等级28进化" },
+        description:"背上的岩石甲壳坚硬无比，遇到危险会缩进壳中，防御力惊人。"
+    },
+    {
+        id:9, name:"电击鼠", number:18,
+        type:["电"], stage:"基础",
+        race:{hp:45, atk:40, def:35, spa:70, spd:40, spe:95},
+        total:325,
+        catch:"发电厂废墟 · 晴天出现",
+        skills:["电击","电光一闪","十万伏特","电磁波"],
+        evolution: { next: "雷电鼠王", method: "使用雷之石进化" },
+        description:"脸颊的电气袋能储存电力，速度极快，常被训练家用来快速清场。"
+    },
+    {
+        id:10, name:"幽灵娃娃", number:55,
+        type:["幽灵"], stage:"一阶",
+        race:{hp:60, atk:45, def:50, spa:100, spd:85, spe:70},
+        total:410,
+        catch:"废弃洋馆 · 夜晚限定",
+        skills:["暗影球","诅咒","催眠术","食梦"],
+        evolution: { prev: "鬼火", method: "亲密度足够时升级进化" },
+        description:"喜欢恶作剧的幽灵精灵，据说在午夜洋馆中会发出奇怪的笑声。"
+    }
+];
         // 所有可用属性列表（用于生成筛选器）
         const allTypes = ["火","水","草","恶","翼","龙","电","冰","格斗","毒","地面","岩石","虫","幽灵","钢","一般"];
         
