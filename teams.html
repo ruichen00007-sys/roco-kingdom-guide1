@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>阵容推荐 · 洛克王国攻略站</title>
+    <style>
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body {
+            font-family: 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            background-color: #1a1a2e; color: #e0e0e0;
+        }
+        a { text-decoration:none; color:#0ef; }
+
+        .navbar {
+            display:flex; justify-content:space-between; align-items:center;
+            padding:1rem 5%; background-color:#16213e;
+            position:sticky; top:0; z-index:100;
+        }
+        .logo { font-size:1.8rem; font-weight:bold; color:#0ef; }
+        .logo span { color:#e94560; }
+        .nav-links { display:flex; gap:2rem; }
+        .nav-links a { color:#e0e0e0; font-weight:500; }
+        .nav-links a:hover { color:#0ef; }
+
+        .container { max-width:1100px; margin:2rem auto; padding:0 1rem; }
+
+        .page-title {
+            font-size:2rem; margin-bottom:0.5rem;
+        }
+        .page-sub {
+            color:#aaa; margin-bottom:2rem;
+        }
+
+        .team-grid {
+            display:grid; grid-template-columns:repeat(auto-fit, minmax(480px, 1fr));
+            gap:1.5rem;
+        }
+
+        .team-card {
+            background-color:#16213e; border-radius:16px;
+            border:1px solid #0f3460; overflow:hidden;
+            transition:border-color 0.3s;
+        }
+        .team-card:hover { border-color:#0ef; }
+
+        .team-header {
+            padding:1.5rem; cursor:pointer;
+            display:flex; justify-content:space-between; align-items:flex-start;
+        }
+        .team-header:hover { background-color:#1a2744; }
+        .team-title {
+            font-size:1.4rem; font-weight:bold; margin-bottom:0.3rem;
+        }
+        .team-tag {
+            display:inline-block; padding:0.2rem 0.8rem;
+            border-radius:20px; font-size:0.8rem; font-weight:bold;
+            margin-bottom:0.5rem;
+        }
+        .tag-pve { background:#26de81; color:#000; }
+        .tag-pvp { background:#e94560; }
+
+        .team-meta {
+            color:#aaa; font-size:0.9rem; margin-top:0.3rem;
+        }
+        .expand-icon {
+            font-size:1.5rem; color:#aaa; transition:transform 0.3s;
+        }
+        .team-card.open .expand-icon { transform:rotate(45deg); }
+
+        .team-detail {
+            padding:0 1.5rem 1.5rem; display:none;
+            border-top:1px solid #0f3460;
+        }
+        .team-card.open .team-detail { display:block; }
+
+        .pokemon-row {
+            display:grid; grid-template-columns:repeat(6, 1fr);
+            gap:0.8rem; margin:1.5rem 0;
+        }
+        .pokemon-slot {
+            background-color:#1a1a2e; border-radius:10px; padding:1rem;
+            text-align:center; border:1px solid #0f3460;
+        }
+        .slot-name {
+            font-weight:bold; margin-bottom:0.5rem; font-size:0.9rem;
+        }
+        .slot-name a { color:#0ef; }
+        .slot-role {
+            font-size:0.7rem; color:#888; margin-bottom:0.5rem;
+        }
+        .slot-detail {
+            font-size:0.75rem; color:#aaa; text-align:left; line-height:1.5;
+        }
+        .slot-detail span { color:#0ef; }
+
+        .strategy-box {
+            background-color:#1a1a2e; border-radius:8px; padding:1rem;
+            margin-top:1rem;
+        }
+        .strategy-box h4 { margin-bottom:0.5rem; color:#0ef; }
+
+        @media (max-width:768px) {
+            .team-grid { grid-template-columns:1fr; }
+            .pokemon-row { grid-template-columns:repeat(3,1fr); }
+        }
+        @media (max-width:480px) {
+            .pokemon-row { grid-template-columns:repeat(2,1fr); }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="logo">洛克<span>攻略站</span></div>
+        <div class="nav-links">
+            <a href="index.html">首页</a>
+            <a href="pokedex.html">精灵图鉴</a>
+            <a href="teams.html" style="color:#0ef;">阵容推荐</a>
+            <a href="#">资源地图</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1 class="page-title">⚔️ 阵容推荐</h1>
+        <p class="page-sub">PVE 开荒 & PVP 天梯 · 抄作业专区</p>
+        <div class="team-grid" id="teamGrid"></div>
+    </div>
+
+    <footer class="footer" style="text-align:center; padding:2rem; background-color:#16213e; margin-top:3rem; color:#888;">
+        <p>© 2026 洛克王国：世界玩家攻略站 | 阵容搭配仅供参考，可根据池子调整</p>
+    </footer>
+
+    <script>
+        // 阵容数据（后续可提取为JSON文件）
+        const teamsData = [
+            {
+                id:1, name:"新手开荒阵容", tag:"PVE开荒", tagClass:"tag-pve",
+                desc:"零氪可用，通关主线无压力",
+                detail:"此阵容以初始火主「火花」为核心输出，水蓝提供回复，翠芽上麻痹粉控场，石甲龟做物理盾，电击鼠高速清场，幽灵娃娃补盲。前期资源优先给火花进化。",
+                pokemons:[
+                    {id:1, name:"火花", role:"核心输出", skill:"火苗, 蓄能焰火", nature:"胆小(+速-攻)", item:"木炭", alt:"可由叮叮恶魔替代"},
+                    {id:2, name:"水蓝", role:"回复辅助", skill:"水流环, 求雨", nature:"温和(+特防-攻)", item:"神秘水滴", alt:"独角兽"},
+                    {id:3, name:"翠芽", role:"干扰控场", skill:"麻痹粉, 飞叶快刀", nature:"大胆(+防-攻)", item:"大根茎", alt:"无"},
+                    {id:8, name:"石甲龟", role:"物理坦克", skill:"守住, 地震", nature:"固执(+攻-特攻)", item:"软沙", alt:"岩甲巨龟"},
+                    {id:9, name:"电击鼠", role:"高速收割", skill:"十万伏特, 电光一闪", nature:"急躁(+速-防)", item:"磁铁", alt:"无"},
+                    {id:10, name:"幽灵娃娃", role:"特殊炮台", skill:"暗影球, 食梦", nature:"内敛(+特攻-攻)", item:"诅咒之符", alt:"暗翼兽"}
+                ]
+            },
+            {
+                id:2, name:"雨天速推队", tag:"PVE速刷", tagClass:"tag-pve",
+                desc:"利用雨天加成，高效清图",
+                detail:"独角兽开启雨天，水蓝水系技能威力翻倍，暗翼兽高速先手，电击鼠打雷必中，翠芽光合作用回复，石甲龟地震补地面打击面。适合刷野外高物防怪。",
+                pokemons:[
+                    {id:5, name:"独角兽", role:"天气手", skill:"求雨, 龙之舞", nature:"温和(+特防-攻)", item:"湿岩石", alt:"无"},
+                    {id:2, name:"水蓝", role:"雨天打手", skill:"水枪, 冲浪", nature:"胆小(+速-攻)", item:"神秘水滴", alt:"浪涛兽"},
+                    {id:7, name:"暗翼兽", role:"先手速攻", skill:"暗袭, 翅膀攻击", nature:"爽朗(+速-特攻)", item:"锐利鸟嘴", alt:"叮叮恶魔"},
+                    {id:9, name:"电击鼠", role:"必中打雷", skill:"十万伏特, 打雷", nature:"急躁(+速-防)", item:"磁铁", alt:"雷电鼠王"},
+                    {id:3, name:"翠芽", role:"回复续航", skill:"光合作用, 寄生种子", nature:"大胆(+防-攻)", item:"大根茎", alt:"无"},
+                    {id:8, name:"石甲龟", role:"地面补盲", skill:"地震, 落石", nature:"固执(+攻-特攻)", item:"软沙", alt:"岩甲巨龟"}
+                ]
+            },
+            {
+                id:3, name:"恶翼强攻队", tag:"PVP天梯", tagClass:"tag-pvp",
+                desc:"利用高速恶翼双属性压制",
+                detail:"叮叮恶魔极速先手暗袭，暗翼兽追打，幽灵娃娃联防格斗系，冰布丁反制龙系，独角兽提供龙舞强化，水蓝求雨防水系。Ban选建议优先禁用钢系盾牌。",
+                pokemons:[
+                    {id:4, name:"叮叮恶魔", role:"极速核心", skill:"暗袭, 空气斩", nature:"爽朗(+速-特攻)", item:"生命玉", alt:"可由暗翼兽暂代"},
+                    {id:7, name:"暗翼兽", role:"副攻手", skill:"暗袭, 高速移动", nature:"爽朗(+速-特攻)", item:"锐利鸟嘴", alt:"无"},
+                    {id:10, name:"幽灵娃娃", role:"特防盾", skill:"暗影球, 诅咒", nature:"温和(+特防-攻)", item:"进化奇石", alt:"无"},
+                    {id:6, name:"冰布丁", role:"特攻炮台", skill:"暴风雪, 冰冻之风", nature:"内敛(+特攻-攻)", item:"不融冰", alt:"无"},
+                    {id:5, name:"独角兽", role:"强化手", skill:"龙之舞, 龙息", nature:"爽朗(+速-特攻)", item:"龙之牙", alt:"圣角天马"},
+                    {id:2, name:"水蓝", role:"天气干扰", skill:"求雨, 冲浪", nature:"胆小(+速-攻)", item:"湿岩石", alt:"浪涛兽"}
+                ]
+            },
+            {
+                id:4, name:"冰控消耗队", tag:"PVP天梯", tagClass:"tag-pvp",
+                desc:"冰系控场+消耗，拖后期决胜",
+                detail:"冰布丁极光幕开启团队减伤，冰冻之风控速，幽灵娃娃挑拨封住对面变化技，翠芽寄生种子消耗，石甲龟守住拖回合，火花负责收割残局。",
+                pokemons:[
+                    {id:6, name:"冰布丁", role:"核心控场", skill:"冰冻之风, 极光幕", nature:"温和(+特防-攻)", item:"光之黏土", alt:"无"},
+                    {id:10, name:"幽灵娃娃", role:"挑拨封技", skill:"挑拨, 暗影球", nature:"胆小(+速-攻)", item:"进化奇石", alt:"无"},
+                    {id:3, name:"翠芽", role:"消耗手", skill:"寄生种子, 光合作用", nature:"大胆(+防-攻)", item:"大根茎", alt:"无"},
+                    {id:8, name:"石甲龟", role:"物理盾", skill:"守住, 地震", nature:"固执(+攻-特攻)", item:"凸凸头盔", alt:"岩甲巨龟"},
+                    {id:1, name:"火花", role:"收割手", skill:"火花踢, 蓄能焰火", nature:"固执(+攻-特攻)", item:"木炭", alt:"烈火兽"},
+                    {id:5, name:"独角兽", role:"龙舞清场", skill:"龙之舞, 龙息", nature:"爽朗(+速-特攻)", item:"龙之牙", alt:"圣角天马"}
+                ]
+            }
+        ];
+
+        // 渲染所有阵容卡片
+        function renderTeams() {
+            const grid = document.getElementById('teamGrid');
+            grid.innerHTML = teamsData.map(team => `
+                <div class="team-card" id="team-${team.id}">
+                    <div class="team-header" onclick="toggleTeam(${team.id})">
+                        <div>
+                            <span class="team-tag ${team.tagClass}">${team.tag}</span>
+                            <div class="team-title">${team.name}</div>
+                            <div class="team-meta">${team.desc}</div>
+                        </div>
+                        <div class="expand-icon">＋</div>
+                    </div>
+                    <div class="team-detail">
+                        <div class="strategy-box">
+                            <h4>🎯 核心思路</h4>
+                            <p style="color:#aaa;">${team.detail}</p>
+                        </div>
+                        <div class="pokemon-row">
+                            ${team.pokemons.map(p => `
+                                <div class="pokemon-slot">
+                                    <div class="slot-name"><a href="pokemon-detail.html?id=${p.id}">${p.name}</a></div>
+                                    <div class="slot-role">${p.role}</div>
+                                    <div class="slot-detail">
+                                        <span>配招：</span>${p.skill}<br>
+                                        <span>性格：</span>${p.nature}<br>
+                                        <span>道具：</span>${p.item}<br>
+                                        <span>备选：</span>${p.alt}
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // 切换单个卡片的开合
+        function toggleTeam(id) {
+            const card = document.getElementById(`team-${id}`);
+            card.classList.toggle('open');
+        }
+
+        renderTeams();
+    </script>
+</body>
+</html>
