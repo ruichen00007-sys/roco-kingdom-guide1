@@ -20,7 +20,7 @@
         .search-box button { padding:0.8rem 1.5rem; background:#e94560; border:none; color:#fff; border-radius:0 4px 4px 0; cursor:pointer; }
         .container { max-width:1200px; margin:0 auto; padding:2rem 1rem; }
         .feature-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(220px,1fr)); gap:1.5rem; margin:2rem 0; }
-        .feature-card { background:#16213e; padding:2rem 1.5rem; border-radius:12px; text-align:center; transition:transform 0.3s; border:1px solid #0f3460; }
+        .feature-card { background:#16213e; padding:2rem 1.5rem; border-radius:12px; text-align:center; transition:transform 0.3s; border:1px solid #0f3460; cursor:pointer; }
         .feature-card:hover { transform:translateY(-5px); border-color:#0ef; }
         .feature-icon { font-size:2.5rem; margin-bottom:1rem; }
         .section-title { font-size:1.8rem; margin:2rem 0 1rem; border-left:4px solid #0ef; padding-left:1rem; }
@@ -59,10 +59,26 @@
     </section>
     <div class="container">
         <div class="feature-grid">
-            <div class="feature-card"><div class="feature-icon">📖</div><h3>新手保姆攻略</h3><p>御三家怎么选？首日资源规划全流程</p></div>
-            <div class="feature-card"><div class="feature-icon">⚔️</div><h3>天梯阵容推荐</h3><p>T0风起队、毒队等八大体系深度解析</p></div>
-            <div class="feature-card"><div class="feature-icon">📚</div><h3>精灵图鉴大全</h3><p>种族值、技能池、进化条件一站式查询</p></div>
-            <div class="feature-card"><div class="feature-icon">🗺️</div><h3>资源地图</h3><p>古币机位置、稀有精灵刷新点全收集</p></div>
+            <div class="feature-card" onclick="window.location.href='articles/newbie-guide.html'">
+                <div class="feature-icon">📖</div>
+                <h3>新手保姆攻略</h3>
+                <p>御三家怎么选？首日资源规划全流程</p>
+            </div>
+            <div class="feature-card" onclick="window.location.href='teams.html'">
+                <div class="feature-icon">⚔️</div>
+                <h3>天梯阵容推荐</h3>
+                <p>T0风起队、毒队等八大体系深度解析</p>
+            </div>
+            <div class="feature-card" onclick="window.location.href='pokedex.html'">
+                <div class="feature-icon">📚</div>
+                <h3>精灵图鉴大全</h3>
+                <p>种族值、技能池、进化条件一站式查询</p>
+            </div>
+            <div class="feature-card" onclick="window.location.href='map.html'">
+                <div class="feature-icon">🗺️</div>
+                <h3>资源地图</h3>
+                <p>古币机位置、稀有精灵刷新点全收集</p>
+            </div>
         </div>
         <h2 class="section-title">📰 最新攻略</h2>
         <div class="content-grid">
@@ -111,7 +127,7 @@
             { id:27, name:"鸣蝉", number:88, type:["虫","草"], stage:"基础", race:{hp:45, atk:40, def:50, spa:75, spd:60, spe:65}, total:335, catch:"碧绿丛林 · 晴天出现", skills:["虫鸣","魔法叶","光合作用","麻痹粉"], evolution:{ next:"翠翼蝉", method:"等级22进化" }, description:"藏在树梢间的蝉精灵，鸣叫声让人心神宁静。" },
             { id:28, name:"翠翼蝉", number:89, type:["虫","草"], stage:"最终", race:{hp:65, atk:50, def:70, spa:110, spd:85, spe:100}, total:480, catch:"鸣蝉22级进化", skills:["虫鸣","飞叶风暴","蝶舞","终极吸取"], evolution:{ prev:"鸣蝉", method:"等级22进化" }, description:"翠绿的薄翼能反射日光，是森林的守护者。" },
             { id:29, name:"三头地鼠", number:95, type:["地面"], stage:"基础", race:{hp:55, atk:80, def:45, spa:30, spd:40, spe:80}, total:330, catch:"干燥沙地 · 全天出现", skills:["挖洞","地震","沙暴","磨爪"], evolution:{ next:"多头地龙", method:"等级33进化" }, description:"三只地鼠一起行动，挖洞速度极快。" },
-            { id:30, name:"幻光蝶", number:100, type:["虫","超能力"], stage:"最终", race:{hp:70, atk:50, def:55, spa:120, spd:80, spe:115}, total:490, catch:"幻光森林 · 夜晚出现（稀有）", skills:["幻象光线","虫鸣","催眠粉","冥想"], evolution:{ prev:"幻光蛹", method:"亲密度足够时进化" }, description:"翅膀散发七彩光芒的稀有精灵。" }
+            { id:30, name:"幻光蝶", number:100, type:["虫","超能力"], stage:"最终", race:{hp:70, atk:50, def:55, spa:120, spd:80, spe:115}, total:490, catch:"幻光森林 · 夜晚出现（稀有）", skills:["幻象光线","虫鸣","催眠粉","冥想"], evolution:{ prev:"幻光蛹", method:"亲密度足够时进化" }, description:"翅膀散发七彩光芒的稀有精灵，据说看到它的人会获得好运。" }
         ];
 
         // 文章数据
