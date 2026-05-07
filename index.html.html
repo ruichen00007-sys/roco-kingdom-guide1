@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>洛克王国：世界攻略站 | 新手开荒·阵容搭配·精灵图鉴</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            background-color: #1a1a2e;
+            color: #e0e0e0;
+            line-height: 1.6;
+        }
+        a {
+            text-decoration: none;
+            color: #0ef;
+        }
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5%;
+            background-color: #16213e;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #0ef;
+        }
+        .logo span {
+            color: #e94560;
+        }
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+        .nav-links a {
+            color: #e0e0e0;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        .nav-links a:hover {
+            color: #0ef;
+        }
+        .hero {
+            text-align: center;
+            padding: 3rem 1rem;
+            background: linear-gradient(135deg, #0f3460, #1a1a2e);
+        }
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+        .hero p {
+            font-size: 1.2rem;
+            color: #aaa;
+            margin-bottom: 1.5rem;
+        }
+        .search-box {
+            display: flex;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        .search-box input {
+            flex: 1;
+            padding: 0.8rem 1rem;
+            border: none;
+            border-radius: 4px 0 0 4px;
+            background-color: #1a1a2e;
+            color: #fff;
+            border: 1px solid #0f3460;
+        }
+        .search-box button {
+            padding: 0.8rem 1.5rem;
+            background-color: #e94560;
+            border: none;
+            color: #fff;
+            border-radius: 0 4px 4px 0;
+            cursor: pointer;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        .feature-card {
+            background-color: #16213e;
+            padding: 2rem 1.5rem;
+            border-radius: 12px;
+            text-align: center;
+            transition: transform 0.3s;
+            border: 1px solid #0f3460;
+        }
+        .feature-card:hover {
+            transform: translateY(-5px);
+            border-color: #0ef;
+        }
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        .section-title {
+            font-size: 1.8rem;
+            margin: 2rem 0 1rem;
+            border-left: 4px solid #0ef;
+            padding-left: 1rem;
+        }
+        .content-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+        }
+        .article-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        .article-item {
+            background-color: #16213e;
+            padding: 1.5rem;
+            border-radius: 8px;
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            border: 1px solid transparent;
+            transition: border-color 0.3s;
+        }
+        .article-item:hover {
+            border-color: #0ef;
+        }
+        .article-tag {
+            background-color: #e94560;
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            white-space: nowrap;
+        }
+        .article-info h3 {
+            margin-bottom: 0.3rem;
+        }
+        .article-meta {
+            font-size: 0.85rem;
+            color: #888;
+        }
+        .sidebar {
+            background-color: #16213e;
+            padding: 1.5rem;
+            border-radius: 8px;
+        }
+        .sidebar h4 {
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+            border-bottom: 1px solid #0f3460;
+            padding-bottom: 0.5rem;
+        }
+        .hot-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.8rem;
+        }
+        .hot-rank {
+            background-color: #e94560;
+            width: 24px;
+            height: 24px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+        .footer {
+            text-align: center;
+            padding: 2rem;
+            background-color: #16213e;
+            margin-top: 2rem;
+            color: #888;
+        }
+        @media (max-width: 768px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+            .navbar {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="logo">洛克<span>攻略站</span></div>
+        <div class="nav-links">
+            <a href="index.html">首页</a>
+            <a href="pokedex.html">精灵图鉴</a>
+            <a href="#">阵容推荐</a>
+            <a href="#">资源地图</a>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <h1>《洛克王国：世界》玩家攻略站</h1>
+        <p>新手开荒 · 阵容搭配 · 精灵图鉴 · BOSS打法</p>
+        <div class="search-box">
+            <input type="text" placeholder="搜索精灵、阵容或攻略...">
+            <button>🔍 搜索</button>
+        </div>
+    </section>
+
+    <div class="container">
+        <div class="feature-grid">
+            <div class="feature-card">
+                <div class="feature-icon">📖</div>
+                <h3>新手保姆攻略</h3>
+                <p>御三家怎么选？首日资源规划全流程</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">⚔️</div>
+                <h3>天梯阵容推荐</h3>
+                <p>T0风起队、毒队等八大体系深度解析</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📚</div>
+                <h3>精灵图鉴大全</h3>
+                <p>种族值、技能池、进化条件一站式查询</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🗺️</div>
+                <h3>资源地图</h3>
+                <p>古币机位置、稀有精灵刷新点全收集</p>
+            </div>
+        </div>
+
+        <h2 class="section-title">📰 最新攻略</h2>
+        <div class="content-grid">
+            <div class="article-list">
+                <div class="article-item">
+                    <span class="article-tag">新手</span>
+                    <div class="article-info">
+                        <h3><a href="#">【开荒必看】保姆级新手入门攻略：御三家选择与速升技巧</a></h3>
+                        <p class="article-meta">3天前 · 阅读 12.8w · 避坑指南</p>
+                    </div>
+                </div>
+                <div class="article-item">
+                    <span class="article-tag">阵容</span>
+                    <div class="article-info">
+                        <h3><a href="#">天梯冲分阵容推荐：冰布丁+独角兽控场体系解析</a></h3>
+                        <p class="article-meta">5天前 · 阅读 8.2w · PVP上分</p>
+                    </div>
+                </div>
+                <div class="article-item">
+                    <span class="article-tag">精灵</span>
+                    <div class="article-info">
+                        <h3><a href="#">叮叮恶魔配队详解：恶翼双属性爆发流养成路线</a></h3>
+                        <p class="article-meta">1周前 · 阅读 5.6w · 深度培养</p>
+                    </div>
+                </div>
+                <div class="article-item">
+                    <span class="article-tag">副本</span>
+                    <div class="article-info">
+                        <h3><a href="#">领地试炼打法全解析：解锁条件与BOSS机制一览</a></h3>
+                        <p class="article-meta">2周前 · 阅读 3.1w · 高难挑战</p>
+                    </div>
+                </div>
+            </div>
+            <aside class="sidebar">
+                <h4>🔥 本周热门</h4>
+                <div class="hot-item"><span class="hot-rank">1</span> 新手开荒全流程</div>
+                <div class="hot-item"><span class="hot-rank">2</span> T0风起队配置</div>
+                <div class="hot-item"><span class="hot-rank">3</span> 古币机位置汇总</div>
+                <div class="hot-item"><span class="hot-rank">4</span> 命定勇者奖牌攻略</div>
+                <div class="hot-item"><span class="hot-rank">5</span> 零氪资源规划</div>
+            </aside>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>© 2026 洛克王国：世界玩家攻略站 | 内容仅供学习交流，版权归原作者所有</p>
+    </footer>
+
+</body>
+</html>

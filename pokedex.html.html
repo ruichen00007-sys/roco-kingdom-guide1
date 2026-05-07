@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>精灵图鉴 · 洛克王国：世界攻略站</title>
+    <style>
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body {
+            font-family: 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            background-color: #1a1a2e; color: #e0e0e0;
+        }
+        a { text-decoration:none; color:#0ef; }
+
+        /* 导航栏复用MVP */
+        .navbar {
+            display:flex; justify-content:space-between; align-items:center;
+            padding:1rem 5%; background-color:#16213e;
+            position:sticky; top:0; z-index:100;
+        }
+        .logo { font-size:1.8rem; font-weight:bold; color:#0ef; }
+        .logo span { color:#e94560; }
+        .nav-links { display:flex; gap:2rem; }
+        .nav-links a { color:#e0e0e0; font-weight:500; transition:color 0.3s; }
+        .nav-links a:hover { color:#0ef; }
+
+        .container { max-width:1300px; margin:0 auto; padding:2rem 1rem; }
+
+        /* 筛选器区域 - 顶部工具栏 */
+        .filter-bar {
+            display:flex; flex-wrap:wrap; gap:1rem; align-items:center;
+            background-color:#16213e; padding:1.5rem; border-radius:12px; margin-bottom:2rem;
+        }
+        .filter-group {
+            display:flex; align-items:center; gap:0.5rem;
+        }
+        .filter-group label {
+            font-weight:bold; color:#aaa; white-space:nowrap;
+        }
+        .filter-group select,
+        .filter-group input {
+            padding:0.5rem 1rem; background-color:#1a1a2e; color:#fff;
+            border:1px solid #0f3460; border-radius:4px;
+        }
+        .filter-group button {
+            padding:0.6rem 1.2rem; background-color:#e94560; border:none;
+            color:#fff; border-radius:4px; cursor:pointer; font-weight:bold;
+        }
+        .filter-group button:hover { opacity:0.9; }
+        .type-checkboxes {
+            display:flex; flex-wrap:wrap; gap:0.8rem;
+        }
+        .type-checkbox label {
+            display:flex; align-items:center; gap:0.3rem; cursor:pointer;
+        }
+
+        /* 图鉴列表网格 */
+        .pokedex-grid {
+            display:grid; grid-template-columns:repeat(auto-fill, minmax(280px, 1fr));
+            gap:1.5rem;
+        }
+        .pokemon-card {
+            background-color:#16213e; border-radius:12px; padding:1.5rem;
+            border:1px solid #0f3460; transition:transform 0.3s, border-color 0.3s;
+            cursor:pointer;
+        }
+        .pokemon-card:hover {
+            transform:translateY(-5px); border-color:#0ef;
+        }
+        .pokemon-header {
+            display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;
+        }
+        .pokemon-id { color:#aaa; font-size:0.9rem; }
+        .pokemon-name { font-size:1.5rem; font-weight:bold; }
+        .pokemon-type {
+            display:flex; gap:0.4rem; margin:0.5rem 0;
+        }
+        .type-badge {
+            padding:0.2rem 0.8rem; border-radius:20px; font-size:0.8rem;
+            font-weight:bold;
+        }
+        /* 属性配色 */
+        .type-火 { background:#e94560; }
+        .type-水 { background:#0f83e9; }
+        .type-草 { background:#26de81; }
+        .type-恶 { background:#2d3436; }
+        .type-翼 { background:#a29bfe; }
+        .type-龙 { background:#6c5ce7; }
+        .type-电 { background:#fdcb6e; }
+        .type-冰 { background:#74b9ff; }
+        .type-格斗 { background:#e17055; }
+        .type-毒 { background:#9b59b6; }
+        .type-地面 { background:#cc8e35; }
+        .type-岩石 { background:#b2bec3; }
+        .type-虫 { background:#6ab04c; }
+        .type-幽灵 { background:#636e72; }
+        .type-钢 { background:#7f8c8d; }
+        .type-一般 { background:#b2bec3; }
+
+        .race-summary {
+            display:flex; justify-content:space-between; margin:0.5rem 0;
+            font-size:0.9rem; color:#aaa;
+        }
+        .total-race { color:#0ef; font-weight:bold; }
+        .catch-info {
+            font-size:0.8rem; color:#777; margin-top:0.5rem;
+        }
+        /* 详情弹窗（可后续扩展） */
+        .modal { display:none; }
+        .footer {
+            text-align:center; padding:2rem; background-color:#16213e;
+            margin-top:3rem; color:#888;
+        }
+        /* 响应式 */
+        @media (max-width:768px) {
+            .filter-bar { flex-direction:column; align-items:flex-start; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 导航栏（与MVP一致） -->
+    <nav class="navbar">
+        <div class="logo">洛克<span>攻略站</span></div>
+        <div class="nav-links">
+            <a href="index.html">首页</a>
+            <a href="pokedex.html" style="color:#0ef;">精灵图鉴</a>
+            <a href="#">阵容推荐</a>
+            <a href="#">资源地图</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <!-- 筛选区域 -->
+        <div class="filter-bar">
+            <div class="filter-group">
+                <label>🔍 搜索</label>
+                <input type="text" id="searchInput" placeholder="精灵名称或编号...">
+            </div>
+            <div class="filter-group">
+                <label>属性</label>
+                <div class="type-checkboxes" id="typeCheckboxes">
+                    <!-- 动态生成 -->
+                </div>
+            </div>
+            <div class="filter-group">
+                <label>种族值范围</label>
+                <select id="raceRange">
+                    <option value="all">全部</option>
+                    <option value="300-400">300 - 400</option>
+                    <option value="400-500">400 - 500</option>
+                    <option value="500-600">500 - 600</option>
+                    <option value="600+">600 以上</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label>进化阶段</label>
+                <select id="stageFilter">
+                    <option value="all">全部</option>
+                    <option value="基础">基础形态</option>
+                    <option value="一阶">一阶进化</option>
+                    <option value="最终">最终进化</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <button id="resetFilter">重置筛选</button>
+            </div>
+        </div>
+
+        <!-- 图鉴列表容器 -->
+        <div class="pokedex-grid" id="pokedexGrid"></div>
+    </div>
+
+    <footer class="footer">
+        <p>© 2026 洛克王国：世界玩家攻略站 | 图鉴数据持续更新中</p>
+    </footer>
+
+    <script>
+        // ==================== 精灵数据（模拟） ====================
+        const pokemonData = [
+            {
+                id:1, name:"叮叮恶魔", number:25,
+                type:["恶","翼"], stage:"最终",
+                race:{hp:80, atk:120, def:70, spa:90, spd:65, spe:110},
+                total:535,
+                catch:"暗影森林深处 · 夜晚出现",
+                skills:["暗袭","飞空斩","恶魔契约","诡计"]
+            },
+            {
+                id:2, name:"独角兽", number:12,
+                type:["龙","水"], stage:"一阶",
+                race:{hp:100, atk:80, def:100, spa:90, spd:90, spe:60},
+                total:520,
+                catch:"圣湖遗迹 · 雨天概率出现",
+                skills:["水枪","龙息","治愈波动","光之壁"]
+            },
+            {
+                id:3, name:"火花", number:1,
+                type:["火"], stage:"基础",
+                race:{hp:50, atk:55, def:45, spa:60, spd:50, spe:65},
+                total:325,
+                catch:"初始伙伴 / 火山脚下",
+                skills:["火苗","烟幕","火花踢"]
+            },
+            {
+                id:4, name:"冰布丁", number:44,
+                type:["冰"], stage:"最终",
+                race:{hp:80, atk:50, def:60, spa:110, spd:100, spe:90},
+                total:490,
+                catch:"极冻雪原 · 任何时段",
+                skills:["冰冻之风","极光幕","暴风雪","冰雹"]
+            },
+            {
+                id:5, name:"暗翼兽", number:78,
+                type:["恶","翼"], stage:"一阶",
+                race:{hp:65, atk:100, def:55, spa:70, spd:55, spe:130},
+                total:475,
+                catch:"迷失之塔顶层 · 夜晚概率出现",
+                skills:["暗袭","翅膀攻击","高速移动"]
+            }
+        ];
+
+        // 所有可用属性列表（用于生成筛选器）
+        const allTypes = ["火","水","草","恶","翼","龙","电","冰","格斗","毒","地面","岩石","虫","幽灵","钢","一般"];
+        
+        // 当前选中的属性（多选）
+        let selectedTypes = [];
+
+        // ==================== 初始化 ====================
+        function init() {
+            renderTypeCheckboxes();
+            renderPokemonCards(pokemonData);
+            bindEvents();
+        }
+
+        // 渲染属性筛选复选框
+        function renderTypeCheckboxes() {
+            const container = document.getElementById('typeCheckboxes');
+            allTypes.forEach(type => {
+                const label = document.createElement('label');
+                label.innerHTML = `
+                    <input type="checkbox" value="${type}" class="type-check">
+                    <span class="type-badge type-${type}">${type}</span>
+                `;
+                container.appendChild(label);
+            });
+        }
+
+        // 渲染精灵卡片
+        function renderPokemonCards(data) {
+            const grid = document.getElementById('pokedexGrid');
+            grid.innerHTML = '';
+            if (data.length === 0) {
+                grid.innerHTML = '<p style="grid-column:1/-1; text-align:center; color:#aaa;">没有找到匹配的精灵</p>';
+                return;
+            }
+            data.forEach(p => {
+                const card = document.createElement('div');
+                card.className = 'pokemon-card';
+                card.innerHTML = `
+                    <div class="pokemon-header">
+                        <span class="pokemon-id">No.${p.number}</span>
+                        <span class="total-race">种族值 ${p.total}</span>
+                    </div>
+                    <div class="pokemon-name">${p.name}</div>
+                    <div class="pokemon-type">
+                        ${p.type.map(t => `<span class="type-badge type-${t}">${t}</span>`).join('')}
+                    </div>
+                    <div class="race-summary">
+                        <span>HP:${p.race.hp}</span><span>攻:${p.race.atk}</span><span>防:${p.race.def}</span>
+                    </div>
+                    <div class="race-summary">
+                        <span>特攻:${p.race.spa}</span><span>特防:${p.race.spd}</span><span>速:${p.race.spe}</span>
+                    </div>
+                    <div class="catch-info">📍 ${p.catch}</div>
+                `;
+                // 点击卡片可后续打开详情弹窗
+                card.addEventListener('click', () => showDetail(p));
+                grid.appendChild(card);
+            });
+        }
+
+        // 筛选逻辑
+        function filterPokemon() {
+            const searchText = document.getElementById('searchInput').value.trim().toLowerCase();
+            const raceRange = document.getElementById('raceRange').value;
+            const stage = document.getElementById('stageFilter').value;
+
+            // 获取选中的属性
+            selectedTypes = [];
+            document.querySelectorAll('.type-check:checked').forEach(cb => selectedTypes.push(cb.value));
+
+            const filtered = pokemonData.filter(p => {
+                // 搜索匹配名称或编号
+                if (searchText && !p.name.toLowerCase().includes(searchText) && p.number.toString() !== searchText) {
+                    return false;
+                }
+                // 属性匹配（如果选了属性，精灵必须至少包含其中一个）
+                if (selectedTypes.length > 0 && !p.type.some(t => selectedTypes.includes(t))) {
+                    return false;
+                }
+                // 种族值范围
+                if (raceRange !== 'all') {
+                    if (raceRange === '600+') {
+                        if (p.total < 600) return false;
+                    } else {
+                        const [min, max] = raceRange.split('-').map(Number);
+                        if (p.total < min || p.total > max) return false;
+                    }
+                }
+                // 进化阶段
+                if (stage !== 'all' && p.stage !== stage) {
+                    return false;
+                }
+                return true;
+            });
+            renderPokemonCards(filtered);
+        }
+
+        // 重置筛选
+        function resetFilter() {
+            document.getElementById('searchInput').value = '';
+            document.getElementById('raceRange').value = 'all';
+            document.getElementById('stageFilter').value = 'all';
+            document.querySelectorAll('.type-check').forEach(cb => cb.checked = false);
+            selectedTypes = [];
+            renderPokemonCards(pokemonData);
+        }
+
+        // 绑定事件
+        function bindEvents() {
+            document.getElementById('searchInput').addEventListener('input', filterPokemon);
+            document.getElementById('raceRange').addEventListener('change', filterPokemon);
+            document.getElementById('stageFilter').addEventListener('change', filterPokemon);
+            document.getElementById('resetFilter').addEventListener('click', resetFilter);
+            
+            // 属性复选框变化时触发筛选
+            document.querySelectorAll('.type-check').forEach(cb => {
+                cb.addEventListener('change', filterPokemon);
+            });
+        }
+
+        // 详情弹窗占位（可后续扩展）
+        function showDetail(pokemon) {
+            alert(`详情页待开发：${pokemon.name}\n技能池：${pokemon.skills.join('、')}`);
+            // 这里未来可以替换为完整的详情模态框或跳转
+        }
+
+        // 启动
+        init();
+    </script>
+</body>
+</html>
