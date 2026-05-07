@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>资源地图 · 洛克王国攻略站</title>
+    <style>
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body {
+            font-family: 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            background-color: #1a1a2e; color: #e0e0e0;
+        }
+        a { text-decoration:none; color:#0ef; }
+
+        .navbar { display:flex; justify-content:space-between; align-items:center; padding:1rem 5%; background-color:#16213e; position:sticky; top:0; z-index:100; }
+        .logo { font-size:1.8rem; font-weight:bold; color:#0ef; }
+        .logo span { color:#e94560; }
+        .nav-links { display:flex; gap:2rem; }
+        .nav-links a { color:#e0e0e0; font-weight:500; }
+        .nav-links a:hover { color:#0ef; }
+
+        .container { max-width:1200px; margin:2rem auto; padding:0 1rem; }
+
+        .map-wrapper {
+            position:relative; margin:2rem 0;
+            background-color: #0f3460;
+            border-radius:16px; overflow:hidden;
+            border:2px solid #16213e;
+            /* 模拟地图的宽高比 */
+            width:100%; height:500px;
+            background-image: linear-gradient(45deg, #1a3a5c 25%, #0f3460 25%, #0f3460 50%, #1a3a5c 50%, #1a3a5c 75%, #0f3460 75%);
+            background-size: 60px 60px;
+            cursor:default;
+        }
+        .map-point {
+            position:absolute;
+            width:32px; height:32px;
+            background-color:#e94560;
+            border:3px solid #fff;
+            border-radius:50%;
+            cursor:pointer;
+            transform:translate(-50%, -50%);
+            transition:box-shadow 0.3s;
+            z-index:10;
+        }
+        .map-point:hover {
+            box-shadow:0 0 15px #e94560;
+        }
+        .map-point.green { background-color:#26de81; border-color:#fff; }
+        .map-point.gold { background-color:#fdcb6e; border-color:#fff; }
+
+        .map-tooltip {
+            display:none;
+            position:absolute;
+            background-color:#16213e;
+            border:1px solid #0ef;
+            border-radius:8px;
+            padding:0.8rem 1rem;
+            min-width:180px;
+            z-index:20;
+            pointer-events:none;
+        }
+        .map-tooltip.active { display:block; }
+        .map-tooltip h4 { margin-bottom:0.3rem; color:#0ef; }
+        .map-tooltip p { font-size:0.85rem; color:#aaa; }
+
+        .legend {
+            display:flex; gap:2rem; margin:1rem 0;
+        }
+        .legend-item { display:flex; align-items:center; gap:0.5rem; }
+        .legend-dot {
+            width:16px; height:16px; border-radius:50%;
+            border:2px solid #fff;
+        }
+        .footer { text-align:center; padding:2rem; background-color:#16213e; margin-top:3rem; color:#888; }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="logo">洛克<span>攻略站</span></div>
+        <div class="nav-links">
+            <a href="index.html">首页</a>
+            <a href="pokedex.html">精灵图鉴</a>
+            <a href="teams.html">阵容推荐</a>
+            <a href="map.html" style="color:#0ef;">资源地图</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1>🗺️ 资源地图</h1>
+        <p style="color:#aaa; margin-bottom:1rem;">标记了古币机、稀有精灵刷新点和隐藏副本入口（模拟位置）</p>
+        <div class="legend">
+            <div class="legend-item"><div class="legend-dot" style="background:#e94560;"></div> 古币机</div>
+            <div class="legend-item"><div class="legend-dot" style="background:#26de81;"></div> 稀有精灵</div>
+            <div class="legend-item"><div class="legend-dot" style="background:#fdcb6e;"></div> 隐藏副本</div>
+        </div>
+
+        <div class="map-wrapper" id="mapWrapper">
+            <!-- 标记点通过JS动态生成，位置为相对百分比 -->
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>© 2026 洛克王国：世界玩家攻略站 | 地图数据持续更新中</p>
+    </footer>
+
+    <script>
+        // 资源点数据（位置为相对地图的百分比）
+        const mapPoints = [
+            { x:15, y:30, type:"古币机", color:"red", title:"古币机 #1", desc:"暗影森林入口左侧" },
+            { x:70, y:20, type:"古币机", color:"red", title:"古币机 #2", desc:"圣湖遗迹石桥下" },
+            { x:40, y:60, type:"稀有精灵", color:"green", title:"叮叮恶魔出没", desc:"暗影森林深处·夜晚" },
+            { x:85, y:50, type:"稀有精灵", color:"green", title:"独角兽出没", desc:"圣湖遗迹·雨天" },
+            { x:25, y:75, type:"隐藏副本", color:"gold", title:"迷失之塔入口", desc:"需要完成前置任务" },
+            { x:55, y:40, type:"隐藏副本", color:"gold", title:"废弃洋馆", desc:"夜晚限定，幽灵系" },
+        ];
+
+        function renderMap() {
+            const wrapper = document.getElementById('mapWrapper');
+            const tooltip = document.createElement('div');
+            tooltip.className = 'map-tooltip';
+            wrapper.appendChild(tooltip);
+
+            mapPoints.forEach((p, index) => {
+                const dot = document.createElement('div');
+                dot.className = `map-point ${p.color}`;
+                dot.style.left = p.x + '%';
+                dot.style.top = p.y + '%';
+                dot.addEventListener('mouseenter', (e) => {
+                    tooltip.innerHTML = `<h4>${p.title}</h4><p>${p.desc}</p>`;
+                    tooltip.classList.add('active');
+                    // 位置跟随
+                    tooltip.style.left = (p.x + 2) + '%';
+                    tooltip.style.top = (p.y - 8) + '%';
+                });
+                dot.addEventListener('mouseleave', () => {
+                    tooltip.classList.remove('active');
+                });
+                wrapper.appendChild(dot);
+            });
+        }
+
+        renderMap();
+    </script>
+</body>
+</html>
