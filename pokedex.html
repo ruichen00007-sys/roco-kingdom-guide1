@@ -400,10 +400,9 @@
         }
 
         // 详情弹窗占位（可后续扩展）
-        function showDetail(pokemon) {
-            alert(`详情页待开发：${pokemon.name}\n技能池：${pokemon.skills.join('、')}`);
-            // 这里未来可以替换为完整的详情模态框或跳转
-        }
+       function showDetail(pokemon) {
+    window.location.href = `pokemon-detail.html?id=${pokemon.id}`;
+}
 
         // 启动
         init();
