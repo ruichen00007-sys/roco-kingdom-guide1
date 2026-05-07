@@ -4,219 +4,51 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>洛克王国：世界攻略站 | 新手开荒·阵容搭配·精灵图鉴</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚔️</text></svg>">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        body {
-            font-family: 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
-            background-color: #1a1a2e;
-            color: #e0e0e0;
-            line-height: 1.6;
-        }
-        a {
-            text-decoration: none;
-            color: #0ef;
-        }
-        .navbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem 5%;
-            background-color: #16213e;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.5);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-        .logo {
-            font-size: 1.8rem;
-            font-weight: bold;
-            color: #0ef;
-        }
-        .logo span {
-            color: #e94560;
-        }
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-        }
-        .nav-links a {
-            color: #e0e0e0;
-            font-weight: 500;
-            transition: color 0.3s;
-        }
-        .nav-links a:hover {
-            color: #0ef;
-        }
-        .hero {
-            text-align: center;
-            padding: 3rem 1rem;
-            background: linear-gradient(135deg, #0f3460, #1a1a2e);
-        }
-        .hero h1 {
-            font-size: 2.5rem;
-            margin-bottom: 0.5rem;
-        }
-        .hero p {
-            font-size: 1.2rem;
-            color: #aaa;
-            margin-bottom: 1.5rem;
-        }
-        .search-box {
-            display: flex;
-            max-width: 500px;
-            margin: 0 auto;
-        }
-        .search-box input {
-            flex: 1;
-            padding: 0.8rem 1rem;
-            border: none;
-            border-radius: 4px 0 0 4px;
-            background-color: #1a1a2e;
-            color: #fff;
-            border: 1px solid #0f3460;
-        }
-        .search-box button {
-            padding: 0.8rem 1.5rem;
-            background-color: #e94560;
-            border: none;
-            color: #fff;
-            border-radius: 0 4px 4px 0;
-            cursor: pointer;
-        }
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem 1rem;
-        }
-        .feature-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 1.5rem;
-            margin: 2rem 0;
-        }
-        .feature-card {
-            background-color: #16213e;
-            padding: 2rem 1.5rem;
-            border-radius: 12px;
-            text-align: center;
-            transition: transform 0.3s;
-            border: 1px solid #0f3460;
-        }
-        .feature-card:hover {
-            transform: translateY(-5px);
-            border-color: #0ef;
-        }
-        .feature-icon {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-        }
-        .section-title {
-            font-size: 1.8rem;
-            margin: 2rem 0 1rem;
-            border-left: 4px solid #0ef;
-            padding-left: 1rem;
-        }
-        .content-grid {
-            display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 2rem;
-        }
-        .article-list {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-        .article-item {
-            background-color: #16213e;
-            padding: 1.5rem;
-            border-radius: 8px;
-            display: flex;
-            gap: 1rem;
-            align-items: center;
-            border: 1px solid transparent;
-            transition: border-color 0.3s;
-        }
-        .article-item:hover {
-            border-color: #0ef;
-        }
-        .article-tag {
-            background-color: #e94560;
-            padding: 0.2rem 0.6rem;
-            border-radius: 4px;
-            font-size: 0.8rem;
-            white-space: nowrap;
-        }
-        .article-info h3 {
-            margin-bottom: 0.3rem;
-        }
-        .article-meta {
-            font-size: 0.85rem;
-            color: #888;
-        }
-        .sidebar {
-            background-color: #16213e;
-            padding: 1.5rem;
-            border-radius: 8px;
-        }
-        .sidebar h4 {
-            margin-bottom: 1rem;
-            font-size: 1.2rem;
-            border-bottom: 1px solid #0f3460;
-            padding-bottom: 0.5rem;
-        }
-        .hot-item {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            margin-bottom: 0.8rem;
-        }
-        .hot-rank {
-            background-color: #e94560;
-            width: 24px;
-            height: 24px;
-            border-radius: 4px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.8rem;
-            font-weight: bold;
-        }
-        .footer {
-            text-align: center;
-            padding: 2rem;
-            background-color: #16213e;
-            margin-top: 2rem;
-            color: #888;
-        }
-        @media (max-width: 768px) {
-            .content-grid {
-                grid-template-columns: 1fr;
-            }
-            .navbar {
-                flex-direction: column;
-                gap: 1rem;
-            }
-        }
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body { font-family:'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif; background:#1a1a2e; color:#e0e0e0; line-height:1.6; }
+        a { text-decoration:none; color:#0ef; }
+        .navbar { display:flex; justify-content:space-between; align-items:center; padding:1rem 5%; background:#16213e; position:sticky; top:0; z-index:100; }
+        .logo { font-size:1.8rem; font-weight:bold; color:#0ef; } .logo span { color:#e94560; }
+        .nav-links { display:flex; gap:2rem; } .nav-links a { color:#e0e0e0; font-weight:500; transition:color 0.3s; } .nav-links a:hover { color:#0ef; }
+        .hero { text-align:center; padding:3rem 1rem; background:linear-gradient(135deg,#0f3460,#1a1a2e); }
+        .hero h1 { font-size:2.5rem; margin-bottom:0.5rem; }
+        .hero p { font-size:1.2rem; color:#aaa; margin-bottom:1.5rem; }
+        .search-box { display:flex; max-width:500px; margin:0 auto; }
+        .search-box input { flex:1; padding:0.8rem 1rem; border:none; border-radius:4px 0 0 4px; background:#1a1a2e; color:#fff; border:1px solid #0f3460; }
+        .search-box button { padding:0.8rem 1.5rem; background:#e94560; border:none; color:#fff; border-radius:0 4px 4px 0; cursor:pointer; }
+        .container { max-width:1200px; margin:0 auto; padding:2rem 1rem; }
+        .feature-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(220px,1fr)); gap:1.5rem; margin:2rem 0; }
+        .feature-card { background:#16213e; padding:2rem 1.5rem; border-radius:12px; text-align:center; transition:transform 0.3s; border:1px solid #0f3460; }
+        .feature-card:hover { transform:translateY(-5px); border-color:#0ef; }
+        .feature-icon { font-size:2.5rem; margin-bottom:1rem; }
+        .section-title { font-size:1.8rem; margin:2rem 0 1rem; border-left:4px solid #0ef; padding-left:1rem; }
+        .content-grid { display:grid; grid-template-columns:2fr 1fr; gap:2rem; }
+        .article-list { display:flex; flex-direction:column; gap:1rem; }
+        .article-item { background:#16213e; padding:1.5rem; border-radius:8px; display:flex; gap:1rem; align-items:center; border:1px solid transparent; transition:border-color 0.3s; }
+        .article-item:hover { border-color:#0ef; }
+        .article-tag { background:#e94560; padding:0.2rem 0.6rem; border-radius:4px; font-size:0.8rem; white-space:nowrap; }
+        .article-info h3 { margin-bottom:0.3rem; }
+        .article-meta { font-size:0.85rem; color:#888; }
+        .sidebar { background:#16213e; padding:1.5rem; border-radius:8px; }
+        .sidebar h4 { margin-bottom:1rem; font-size:1.2rem; border-bottom:1px solid #0f3460; padding-bottom:0.5rem; }
+        .hot-item { display:flex; align-items:center; gap:0.5rem; margin-bottom:0.8rem; }
+        .hot-rank { background:#e94560; width:24px; height:24px; border-radius:4px; display:flex; align-items:center; justify-content:center; font-size:0.8rem; font-weight:bold; }
+        .footer { text-align:center; padding:2rem; background:#16213e; margin-top:2rem; color:#888; }
+        @media (max-width:768px) { .content-grid { grid-template-columns:1fr; } .navbar { flex-direction:column; gap:1rem; } }
     </style>
-    <!-- 引入公共数据，使搜索可以使用精灵数据 -->
-    <script src="data.js"></script>
 </head>
 <body>
-
     <nav class="navbar">
         <div class="logo">洛克<span>攻略站</span></div>
         <div class="nav-links">
-            <a href="index.html">首页</a>
+            <a href="index.html" style="color:#0ef;">首页</a>
             <a href="pokedex.html">精灵图鉴</a>
             <a href="teams.html">阵容推荐</a>
             <a href="map.html">资源地图</a>
         </div>
     </nav>
-
     <section class="hero">
         <h1>《洛克王国：世界》玩家攻略站</h1>
         <p>新手开荒 · 阵容搭配 · 精灵图鉴 · BOSS打法</p>
@@ -225,63 +57,16 @@
             <button id="heroSearchBtn">🔍 搜索</button>
         </div>
     </section>
-
     <div class="container">
         <div class="feature-grid">
-            <div class="feature-card">
-                <div class="feature-icon">📖</div>
-                <h3>新手保姆攻略</h3>
-                <p>御三家怎么选？首日资源规划全流程</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">⚔️</div>
-                <h3>天梯阵容推荐</h3>
-                <p>T0风起队、毒队等八大体系深度解析</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">📚</div>
-                <h3>精灵图鉴大全</h3>
-                <p>种族值、技能池、进化条件一站式查询</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">🗺️</div>
-                <h3>资源地图</h3>
-                <p>古币机位置、稀有精灵刷新点全收集</p>
-            </div>
+            <div class="feature-card"><div class="feature-icon">📖</div><h3>新手保姆攻略</h3><p>御三家怎么选？首日资源规划全流程</p></div>
+            <div class="feature-card"><div class="feature-icon">⚔️</div><h3>天梯阵容推荐</h3><p>T0风起队、毒队等八大体系深度解析</p></div>
+            <div class="feature-card"><div class="feature-icon">📚</div><h3>精灵图鉴大全</h3><p>种族值、技能池、进化条件一站式查询</p></div>
+            <div class="feature-card"><div class="feature-icon">🗺️</div><h3>资源地图</h3><p>古币机位置、稀有精灵刷新点全收集</p></div>
         </div>
-
         <h2 class="section-title">📰 最新攻略</h2>
         <div class="content-grid">
-            <div class="article-list">
-                <div class="article-item">
-                    <span class="article-tag">新手</span>
-                    <div class="article-info">
-                        <h3><a href="articles/newbie-guide.html">【开荒必看】保姆级新手入门攻略：御三家选择与速升技巧</a></h3>
-                        <p class="article-meta">3天前 · 阅读 12.8w · 避坑指南</p>
-                    </div>
-                </div>
-                <div class="article-item">
-                    <span class="article-tag">阵容</span>
-                    <div class="article-info">
-                        <h3><a href="#">天梯冲分阵容推荐：冰布丁+独角兽控场体系解析</a></h3>
-                        <p class="article-meta">5天前 · 阅读 8.2w · PVP上分</p>
-                    </div>
-                </div>
-                <div class="article-item">
-                    <span class="article-tag">精灵</span>
-                    <div class="article-info">
-                        <h3><a href="#">叮叮恶魔配队详解：恶翼双属性爆发流养成路线</a></h3>
-                        <p class="article-meta">1周前 · 阅读 5.6w · 深度培养</p>
-                    </div>
-                </div>
-                <div class="article-item">
-                    <span class="article-tag">副本</span>
-                    <div class="article-info">
-                        <h3><a href="#">领地试炼打法全解析：解锁条件与BOSS机制一览</a></h3>
-                        <p class="article-meta">2周前 · 阅读 3.1w · 高难挑战</p>
-                    </div>
-                </div>
-            </div>
+            <div class="article-list" id="articleList"></div>
             <aside class="sidebar">
                 <h4>🔥 本周热门</h4>
                 <div class="hot-item"><span class="hot-rank">1</span> 新手开荒全流程</div>
@@ -292,43 +77,77 @@
             </aside>
         </div>
     </div>
-
-    <footer class="footer">
-        <p>© 2026 洛克王国：世界玩家攻略站 | 内容仅供学习交流，版权归原作者所有</p>
-    </footer>
+    <footer class="footer"><p>© 2026 洛克王国：世界玩家攻略站 | 内容仅供学习交流，版权归原作者所有</p></footer>
 
     <script>
-        // 首页搜索框联动 - 支持精灵名称或编号搜索，跳转到详情页
-        (function() {
-            const searchInput = document.getElementById('heroSearch');
-            const searchBtn = document.getElementById('heroSearchBtn');
+        // 内嵌30只精灵数据（用于搜索）
+        const pokemonData = [
+            { id:1, name:"火花", number:1, type:["火"], stage:"基础", race:{hp:50, atk:55, def:45, spa:60, spd:50, spe:65}, total:325, catch:"初始伙伴选择 / 火山脚下遇见", skills:["火苗","烟幕","火花踢","蓄能焰火"], evolution:{ next:"烈火兽", method:"等级16进化" }, description:"热情而忠诚的火焰精灵，身上的火焰会随着心情变化。" },
+            { id:2, name:"水蓝", number:4, type:["水"], stage:"基础", race:{hp:55, atk:45, def:60, spa:65, spd:55, spe:45}, total:325, catch:"初始伙伴选择 / 湖泊浅滩", skills:["水枪","泡沫","水流环","求雨"], evolution:{ next:"浪涛兽", method:"等级16进化" }, description:"性格温和的水系精灵，能净化水质。" },
+            { id:3, name:"翠芽", number:7, type:["草"], stage:"基础", race:{hp:50, atk:50, def:65, spa:60, spd:60, spe:40}, total:325, catch:"初始伙伴选择 / 密林小径", skills:["飞叶快刀","光合作用","藤鞭","麻痹粉"], evolution:{ next:"翠藤精", method:"等级16进化" }, description:"头上嫩芽会预知天气的草系精灵。" },
+            { id:4, name:"叮叮恶魔", number:25, type:["恶","翼"], stage:"最终", race:{hp:80, atk:120, def:70, spa:90, spd:65, spe:110}, total:535, catch:"暗影森林深处 · 夜晚概率出现", skills:["暗袭","飞空斩","恶魔契约","诡计","暗影球","空气斩"], evolution:{ prev:"叮叮蝠", method:"使用暗之石进化" }, description:"速度极快，擅长先手攻击的恶翼双属性精灵。" },
+            { id:5, name:"独角兽", number:12, type:["龙","水"], stage:"一阶", race:{hp:100, atk:80, def:100, spa:90, spd:90, spe:60}, total:520, catch:"圣湖遗迹 · 雨天概率出现", skills:["水枪","龙息","治愈波动","光之壁","龙之舞"], evolution:{ next:"圣角天马", method:"等级40进化" }, description:"拥有龙族血统的高贵精灵。" },
+            { id:6, name:"冰布丁", number:44, type:["冰"], stage:"最终", race:{hp:80, atk:50, def:60, spa:110, spd:100, spe:90}, total:490, catch:"极冻雪原 · 任何时段", skills:["冰冻之风","极光幕","暴风雪","冰雹","绝对零度"], evolution:{ prev:"冰团子", method:"携带不融冰升级进化" }, description:"身体柔软如布丁，却能释放极寒气息。" },
+            { id:7, name:"暗翼兽", number:78, type:["恶","翼"], stage:"一阶", race:{hp:65, atk:100, def:55, spa:70, spd:55, spe:130}, total:475, catch:"迷失之塔顶层 · 夜晚概率出现", skills:["暗袭","翅膀攻击","高速移动","黑夜魔影"], evolution:{ next:"暗翼龙王", method:"等级36进化" }, description:"在黑暗中无声飞行的掠食者。" },
+            { id:8, name:"石甲龟", number:33, type:["岩石","地面"], stage:"基础", race:{hp:70, atk:65, def:100, spa:40, spd:55, spe:25}, total:355, catch:"岩石洞穴 · 全天出现", skills:["落石","变硬","地震","守住"], evolution:{ next:"岩甲巨龟", method:"等级28进化" }, description:"背上的岩石甲壳坚硬无比。" },
+            { id:9, name:"电击鼠", number:18, type:["电"], stage:"基础", race:{hp:45, atk:40, def:35, spa:70, spd:40, spe:95}, total:325, catch:"发电厂废墟 · 晴天出现", skills:["电击","电光一闪","十万伏特","电磁波"], evolution:{ next:"雷电鼠王", method:"使用雷之石进化" }, description:"脸颊的电气袋能储存电力。" },
+            { id:10, name:"幽灵娃娃", number:55, type:["幽灵"], stage:"一阶", race:{hp:60, atk:45, def:50, spa:100, spd:85, spe:70}, total:410, catch:"废弃洋馆 · 夜晚限定", skills:["暗影球","诅咒","催眠术","食梦"], evolution:{ prev:"鬼火", method:"亲密度足够时升级进化" }, description:"喜欢恶作剧的幽灵精灵。" },
+            { id:11, name:"烈火兽", number:2, type:["火"], stage:"一阶", race:{hp:70, atk:80, def:60, spa:85, spd:65, spe:90}, total:450, catch:"火花16级进化", skills:["火焰轮","喷射火焰","火焰牙","蓄能焰火"], evolution:{ prev:"火花", next:"烈焰战将", method:"等级36进化" }, description:"火花的进化形态，浑身燃烧着炽热的火焰。" },
+            { id:12, name:"浪涛兽", number:5, type:["水"], stage:"一阶", race:{hp:75, atk:60, def:80, spa:90, spd:75, spe:60}, total:440, catch:"水蓝16级进化", skills:["水流尾","冲浪","水流环","求雨"], evolution:{ prev:"水蓝", next:"深海霸主", method:"等级36进化" }, description:"水蓝的进化形态，能掀起巨浪。" },
+            { id:13, name:"翠藤精", number:8, type:["草"], stage:"一阶", race:{hp:70, atk:65, def:90, spa:80, spd:85, spe:55}, total:445, catch:"翠芽16级进化", skills:["藤鞭强击","叶片风暴","寄生种子","光合作用"], evolution:{ prev:"翠芽", next:"荆棘花仙", method:"等级36进化" }, description:"翠芽的进化形态，挥舞坚韧的藤蔓。" },
+            { id:14, name:"圣角天马", number:13, type:["龙","水"], stage:"最终", race:{hp:120, atk:90, def:110, spa:105, spd:100, spe:75}, total:600, catch:"独角兽40级进化", skills:["龙之波动","水之誓约","治愈波动","龙之舞"], evolution:{ prev:"独角兽", method:"等级40进化" }, description:"独角兽的最终形态，圣湖的守护者。" },
+            { id:15, name:"暗翼龙王", number:79, type:["恶","翼"], stage:"最终", race:{hp:80, atk:125, def:70, spa:85, spd:70, spe:140}, total:570, catch:"暗翼兽36级进化", skills:["暗影爪","神鸟猛击","龙之舞","诡计"], evolution:{ prev:"暗翼兽", method:"等级36进化" }, description:"暗翼兽的进化形态，在黑夜中无声猎杀。" },
+            { id:16, name:"冰团子", number:43, type:["冰"], stage:"基础", race:{hp:60, atk:35, def:45, spa:75, spd:65, spe:55}, total:335, catch:"极冻雪原 · 暴风雪天气", skills:["冰冻之风","细雪","变硬","冰雹"], evolution:{ next:"冰布丁", method:"携带不融冰升级进化" }, description:"像糯米团子一样的冰系精灵。" },
+            { id:17, name:"岩甲巨龟", number:34, type:["岩石","地面"], stage:"最终", race:{hp:100, atk:95, def:140, spa:55, spd:80, spe:30}, total:500, catch:"石甲龟28级进化", skills:["岩石炮","地震","铁壁","守住"], evolution:{ prev:"石甲龟", method:"等级28进化" }, description:"甲壳坚硬如山，能抵御绝大多数物理攻击。" },
+            { id:18, name:"雷电鼠王", number:19, type:["电"], stage:"最终", race:{hp:65, atk:55, def:50, spa:105, spd:60, spe:125}, total:460, catch:"电击鼠使用雷之石进化", skills:["打雷","伏特替换","电气场地","蹭蹭脸颊"], evolution:{ prev:"电击鼠", method:"使用雷之石进化" }, description:"电击鼠的进化形态，全身被雷电包裹。" },
+            { id:19, name:"鬼火", number:54, type:["幽灵"], stage:"基础", race:{hp:40, atk:35, def:35, spa:70, spd:45, spe:55}, total:280, catch:"废弃洋馆 · 夜晚出现", skills:["暗影球","惊吓","奇异之光","黑夜魔影"], evolution:{ next:"幽灵娃娃", method:"亲密度足够时升级进化" }, description:"幽幽的鬼火，靠近时会感到寒意。" },
+            { id:20, name:"叮叮蝠", number:24, type:["恶","翼"], stage:"基础", race:{hp:55, atk:80, def:50, spa:55, spd:45, spe:95}, total:380, catch:"暗影森林 · 夜晚出现", skills:["暗袭","超声波","翅膀攻击","高速移动"], evolution:{ next:"叮叮恶魔", method:"使用暗之石进化" }, description:"倒挂在暗影森林的蝙蝠精灵。" },
+            { id:21, name:"格斗小子", number:61, type:["格斗"], stage:"基础", race:{hp:65, atk:85, def:55, spa:30, spd:40, spe:70}, total:345, catch:"训练场 · 全天出现", skills:["空手劈","下盘踢","健美","看穿"], evolution:{ next:"武斗大师", method:"等级30进化" }, description:"热爱格斗的小精灵。" },
+            { id:22, name:"武斗大师", number:62, type:["格斗"], stage:"一阶", race:{hp:85, atk:115, def:75, spa:40, spd:60, spe:85}, total:460, catch:"格斗小子30级进化", skills:["近身战","飞膝踢","健美","快速防守"], evolution:{ prev:"格斗小子", next:"武圣", method:"等级48进化" }, description:"拳风凌厉，能劈开岩石。" },
+            { id:23, name:"毒尾蝎", number:70, type:["毒","虫"], stage:"基础", race:{hp:50, atk:70, def:65, spa:45, spd:55, spe:60}, total:345, catch:"毒雾沼泽 · 全天出现", skills:["毒针","虫咬","剧毒","毒菱"], evolution:{ next:"毒刺巨蝎", method:"等级28进化" }, description:"尾部的毒针能让对手麻痹。" },
+            { id:24, name:"毒刺巨蝎", number:71, type:["毒","虫"], stage:"一阶", race:{hp:70, atk:100, def:90, spa:55, spd:75, spe:80}, total:470, catch:"毒尾蝎28级进化", skills:["十字毒刃","致命针刺","毒液冲击","剑舞"], evolution:{ prev:"毒尾蝎", next:"毒蝎王", method:"等级42进化" }, description:"巨大的毒刺一击就能让大型精灵倒下。" },
+            { id:25, name:"小钢甲", number:80, type:["钢"], stage:"基础", race:{hp:60, atk:55, def:90, spa:35, spd:60, spe:30}, total:330, catch:"矿洞深处 · 全天出现", skills:["金属爪","铁壁","陀螺球","铁头"], evolution:{ next:"钢铁战甲", method:"等级32进化" }, description:"全身覆盖钢铁外壳，防御力出众。" },
+            { id:26, name:"钢铁战甲", number:81, type:["钢"], stage:"一阶", race:{hp:85, atk:80, def:130, spa:45, spd:85, spe:35}, total:460, catch:"小钢甲32级进化", skills:["重磅冲撞","铁壁","金属音","隐形岩"], evolution:{ prev:"小钢甲", next:"钢甲暴龙", method:"等级50进化" }, description:"厚重的钢甲能反弹敌人的攻击。" },
+            { id:27, name:"鸣蝉", number:88, type:["虫","草"], stage:"基础", race:{hp:45, atk:40, def:50, spa:75, spd:60, spe:65}, total:335, catch:"碧绿丛林 · 晴天出现", skills:["虫鸣","魔法叶","光合作用","麻痹粉"], evolution:{ next:"翠翼蝉", method:"等级22进化" }, description:"藏在树梢间的蝉精灵，鸣叫声让人心神宁静。" },
+            { id:28, name:"翠翼蝉", number:89, type:["虫","草"], stage:"最终", race:{hp:65, atk:50, def:70, spa:110, spd:85, spe:100}, total:480, catch:"鸣蝉22级进化", skills:["虫鸣","飞叶风暴","蝶舞","终极吸取"], evolution:{ prev:"鸣蝉", method:"等级22进化" }, description:"翠绿的薄翼能反射日光，是森林的守护者。" },
+            { id:29, name:"三头地鼠", number:95, type:["地面"], stage:"基础", race:{hp:55, atk:80, def:45, spa:30, spd:40, spe:80}, total:330, catch:"干燥沙地 · 全天出现", skills:["挖洞","地震","沙暴","磨爪"], evolution:{ next:"多头地龙", method:"等级33进化" }, description:"三只地鼠一起行动，挖洞速度极快。" },
+            { id:30, name:"幻光蝶", number:100, type:["虫","超能力"], stage:"最终", race:{hp:70, atk:50, def:55, spa:120, spd:80, spe:115}, total:490, catch:"幻光森林 · 夜晚出现（稀有）", skills:["幻象光线","虫鸣","催眠粉","冥想"], evolution:{ prev:"幻光蛹", method:"亲密度足够时进化" }, description:"翅膀散发七彩光芒的稀有精灵。" }
+        ];
 
-            function doSearch() {
-                const keyword = searchInput.value.trim().toLowerCase();
-                if (!keyword) {
-                    alert('请输入精灵名称或编号');
-                    return;
-                }
-                // 使用公共数据 pokemonData（来自 data.js）
-                if (typeof pokemonData !== 'undefined') {
-                    const found = pokemonData.find(p => 
-                        p.name.toLowerCase().includes(keyword) || p.number.toString() === keyword
-                    );
-                    if (found) {
-                        window.location.href = `pokemon-detail.html?id=${found.id}`;
-                        return;
-                    }
-                }
-                alert('未找到匹配的精灵，请尝试其他关键词');
-            }
+        // 文章数据
+        const articles = [
+            { tag:"新手", title:"【开荒必看】保姆级新手入门攻略：御三家选择与速升技巧", link:"articles/newbie-guide.html", meta:"3天前 · 阅读 12.8w · 避坑指南" },
+            { tag:"阵容", title:"天梯冲分阵容推荐：冰布丁+独角兽控场体系解析", link:"#", meta:"5天前 · 阅读 8.2w · PVP上分" },
+            { tag:"精灵", title:"叮叮恶魔配队详解：恶翼双属性爆发流养成路线", link:"#", meta:"1周前 · 阅读 5.6w · 深度培养" },
+            { tag:"副本", title:"领地试炼打法全解析：解锁条件与BOSS机制一览", link:"#", meta:"2周前 · 阅读 3.1w · 高难挑战" }
+        ];
 
-            searchBtn.addEventListener('click', doSearch);
-            searchInput.addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') {
-                    doSearch();
-                }
-            });
-        })();
+        // 渲染文章列表
+        function renderArticles() {
+            document.getElementById('articleList').innerHTML = articles.map(a => `
+                <div class="article-item">
+                    <span class="article-tag">${a.tag}</span>
+                    <div class="article-info">
+                        <h3><a href="${a.link}">${a.title}</a></h3>
+                        <p class="article-meta">${a.meta}</p>
+                    </div>
+                </div>
+            `).join('');
+        }
+        renderArticles();
+
+        // 搜索功能
+        const searchInput = document.getElementById('heroSearch');
+        const searchBtn = document.getElementById('heroSearchBtn');
+        function doSearch() {
+            const keyword = searchInput.value.trim().toLowerCase();
+            if (!keyword) { alert('请输入精灵名称或编号'); return; }
+            const found = pokemonData.find(p => p.name.toLowerCase().includes(keyword) || p.number.toString() === keyword);
+            if (found) { window.location.href = `pokemon-detail.html?id=${found.id}`; }
+            else { alert('未找到匹配的精灵，请尝试其他关键词'); }
+        }
+        searchBtn.addEventListener('click', doSearch);
+        searchInput.addEventListener('keypress', function(e) { if (e.key === 'Enter') doSearch(); });
     </script>
 </body>
 </html>
