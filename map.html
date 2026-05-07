@@ -4,16 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>资源地图 · 洛克王国攻略站</title>
+    <meta name="description" content="洛克王国：世界资源地图，古币机位置、稀有精灵刷新点（叮叮恶魔、独角兽等）、隐藏副本入口标记，一图扫清隐藏要素。">
+    <meta name="keywords" content="洛克王国世界,资源地图,古币机,稀有精灵,刷新点,隐藏副本">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚔️</text></svg>">
     <style>
         * { margin:0; padding:0; box-sizing:border-box; }
         body { font-family:'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif; background:#1a1a2e; color:#e0e0e0; }
         a { text-decoration:none; color:#0ef; }
-        .navbar { display:flex; justify-content:space-between; align-items:center; padding:1rem 5%; background:#16213e; position:sticky; top:0; z-index:100; }
+        .navbar { display:flex; justify-content:space-between; align-items:center; padding:1rem 5%; background:#16213e; position:sticky; top:0; z-index:100; flex-wrap:wrap; }
         .logo { font-size:1.8rem; font-weight:bold; color:#0ef; } .logo span { color:#e94560; }
-        .nav-links { display:flex; gap:2rem; } .nav-links a { color:#e0e0e0; font-weight:500; } .nav-links a:hover { color:#0ef; }
+        .nav-links { display:flex; gap:1.5rem; flex-wrap:wrap; } .nav-links a { color:#e0e0e0; font-weight:500; } .nav-links a:hover { color:#0ef; }
         .container { max-width:1200px; margin:2rem auto; padding:0 1rem; }
-        .map-wrapper { position:relative; margin:2rem 0; background:#0f3460; border-radius:16px; overflow:hidden; border:2px solid #16213e; width:100%; height:500px; background-image: linear-gradient(45deg, #1a3a5c 25%, #0f3460 25%, #0f3460 50%, #1a3a5c 50%, #1a3a5c 75%, #0f3460 75%); background-size: 60px 60px; cursor:default; }
+        .map-wrapper { position:relative; margin:2rem 0; background:#0f3460; border-radius:16px; overflow:hidden; border:2px solid #16213e; width:100%; height:500px; background-image: linear-gradient(45deg, #1a3a5c 25%, #0f3460 25%, #0f3460 50%, #1a3a5c 50%, #1a3a5c 75%, #0f3460 75%); background-size: 60px 60px; }
         .map-point { position:absolute; width:32px; height:32px; background:#e94560; border:3px solid #fff; border-radius:50%; cursor:pointer; transform:translate(-50%,-50%); transition:box-shadow 0.3s; z-index:10; }
         .map-point:hover { box-shadow:0 0 15px #e94560; }
         .map-point.green { background:#26de81; }
