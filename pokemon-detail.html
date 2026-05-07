@@ -4,14 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>精灵详情 · 洛克王国攻略站</title>
+    <meta name="description" content="洛克王国：世界精灵图鉴详情页，查看精灵种族值、技能池、进化链、捕获地点及推荐阵容搭配。">
+    <meta name="keywords" content="洛克王国世界,精灵图鉴,精灵详情,种族值,技能,进化,阵容推荐">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚔️</text></svg>">
     <style>
         * { margin:0; padding:0; box-sizing:border-box; }
         body { font-family:'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif; background:#1a1a2e; color:#e0e0e0; }
         a { text-decoration:none; color:#0ef; }
-        .navbar { display:flex; justify-content:space-between; align-items:center; padding:1rem 5%; background:#16213e; position:sticky; top:0; z-index:100; }
+        .navbar { display:flex; justify-content:space-between; align-items:center; padding:1rem 5%; background:#16213e; position:sticky; top:0; z-index:100; flex-wrap:wrap; }
         .logo { font-size:1.8rem; font-weight:bold; color:#0ef; } .logo span { color:#e94560; }
-        .nav-links { display:flex; gap:2rem; } .nav-links a { color:#e0e0e0; font-weight:500; } .nav-links a:hover { color:#0ef; }
+        .nav-links { display:flex; gap:1.5rem; flex-wrap:wrap; } .nav-links a { color:#e0e0e0; font-weight:500; } .nav-links a:hover { color:#0ef; }
         .container { max-width:900px; margin:2rem auto; padding:0 1rem; }
         .back-link { display:inline-block; margin-bottom:1.5rem; color:#aaa; transition:color 0.3s; } .back-link:hover { color:#0ef; }
         .detail-card { background:#16213e; border-radius:16px; padding:2rem; border:1px solid #0f3460; }
@@ -56,8 +58,6 @@
 
     <script>
         const pokemonData = [
-            // 完整30只精灵数据，与上面相同，省略以节省篇幅，请直接复制索引页或图鉴页的pokemonData数组过来
-            // 为保险起见，下面给出完整数组（与前两个页面相同的30只）
             { id:1, name:"火花", number:1, type:["火"], stage:"基础", race:{hp:50, atk:55, def:45, spa:60, spd:50, spe:65}, total:325, catch:"初始伙伴选择 / 火山脚下遇见", skills:["火苗","烟幕","火花踢","蓄能焰火"], evolution:{ next:"烈火兽", method:"等级16进化" }, description:"热情而忠诚的火焰精灵。" },
             { id:2, name:"水蓝", number:4, type:["水"], stage:"基础", race:{hp:55, atk:45, def:60, spa:65, spd:55, spe:45}, total:325, catch:"初始伙伴选择 / 湖泊浅滩", skills:["水枪","泡沫","水流环","求雨"], evolution:{ next:"浪涛兽", method:"等级16进化" }, description:"性格温和的水系精灵。" },
             { id:3, name:"翠芽", number:7, type:["草"], stage:"基础", race:{hp:50, atk:50, def:65, spa:60, spd:60, spe:40}, total:325, catch:"初始伙伴选择 / 密林小径", skills:["飞叶快刀","光合作用","藤鞭","麻痹粉"], evolution:{ next:"翠藤精", method:"等级16进化" }, description:"头上嫩芽会预知天气的草系精灵。" },
@@ -71,23 +71,31 @@
             { id:11, name:"烈火兽", number:2, type:["火"], stage:"一阶", race:{hp:70, atk:80, def:60, spa:85, spd:65, spe:90}, total:450, catch:"火花16级进化", skills:["火焰轮","喷射火焰","火焰牙","蓄能焰火"], evolution:{ prev:"火花", next:"烈焰战将", method:"等级36进化" }, description:"火花的进化形态。" },
             { id:12, name:"浪涛兽", number:5, type:["水"], stage:"一阶", race:{hp:75, atk:60, def:80, spa:90, spd:75, spe:60}, total:440, catch:"水蓝16级进化", skills:["水流尾","冲浪","水流环","求雨"], evolution:{ prev:"水蓝", next:"深海霸主", method:"等级36进化" }, description:"水蓝的进化形态。" },
             { id:13, name:"翠藤精", number:8, type:["草"], stage:"一阶", race:{hp:70, atk:65, def:90, spa:80, spd:85, spe:55}, total:445, catch:"翠芽16级进化", skills:["藤鞭强击","叶片风暴","寄生种子","光合作用"], evolution:{ prev:"翠芽", next:"荆棘花仙", method:"等级36进化" }, description:"翠芽的进化形态。" },
-            { id:14, name:"圣角天马", number:13, type:["龙","水"], stage:"最终", race:{hp:120, atk:90, def:110, spa:105, spd:100, spe:75}, total:600, catch:"独角兽40级进化", skills:["龙之波动","水之誓约","治愈波动","龙之舞"], evolution:{ prev:"独角兽", method:"等级40进化" }, description:"独角兽的最终形态。" },
-            { id:15, name:"暗翼龙王", number:79, type:["恶","翼"], stage:"最终", race:{hp:80, atk:125, def:70, spa:85, spd:70, spe:140}, total:570, catch:"暗翼兽36级进化", skills:["暗影爪","神鸟猛击","龙之舞","诡计"], evolution:{ prev:"暗翼兽", method:"等级36进化" }, description:"暗翼兽的进化形态。" },
+            { id:14, name:"圣角天马", number:13, type:["龙","水"], stage:"最终", race:{hp:120, atk:90, def:110, spa:105, spd:100, spe:75}, total:600, catch:"独角兽40级进化", skills:["龙之波动","水之誓约","治愈波动","龙之舞"], evolution:{ prev:"独角兽", method:"等级40进化" }, description:"圣湖的守护者。" },
+            { id:15, name:"暗翼龙王", number:79, type:["恶","翼"], stage:"最终", race:{hp:80, atk:125, def:70, spa:85, spd:70, spe:140}, total:570, catch:"暗翼兽36级进化", skills:["暗影爪","神鸟猛击","龙之舞","诡计"], evolution:{ prev:"暗翼兽", method:"等级36进化" }, description:"在黑夜中无声猎杀。" },
             { id:16, name:"冰团子", number:43, type:["冰"], stage:"基础", race:{hp:60, atk:35, def:45, spa:75, spd:65, spe:55}, total:335, catch:"极冻雪原 · 暴风雪天气", skills:["冰冻之风","细雪","变硬","冰雹"], evolution:{ next:"冰布丁", method:"携带不融冰升级进化" }, description:"像糯米团子一样的冰系精灵。" },
             { id:17, name:"岩甲巨龟", number:34, type:["岩石","地面"], stage:"最终", race:{hp:100, atk:95, def:140, spa:55, spd:80, spe:30}, total:500, catch:"石甲龟28级进化", skills:["岩石炮","地震","铁壁","守住"], evolution:{ prev:"石甲龟", method:"等级28进化" }, description:"甲壳坚硬如山。" },
             { id:18, name:"雷电鼠王", number:19, type:["电"], stage:"最终", race:{hp:65, atk:55, def:50, spa:105, spd:60, spe:125}, total:460, catch:"电击鼠使用雷之石进化", skills:["打雷","伏特替换","电气场地","蹭蹭脸颊"], evolution:{ prev:"电击鼠", method:"使用雷之石进化" }, description:"全身被雷电包裹。" },
             { id:19, name:"鬼火", number:54, type:["幽灵"], stage:"基础", race:{hp:40, atk:35, def:35, spa:70, spd:45, spe:55}, total:280, catch:"废弃洋馆 · 夜晚出现", skills:["暗影球","惊吓","奇异之光","黑夜魔影"], evolution:{ next:"幽灵娃娃", method:"亲密度足够时升级进化" }, description:"幽幽的鬼火。" },
             { id:20, name:"叮叮蝠", number:24, type:["恶","翼"], stage:"基础", race:{hp:55, atk:80, def:50, spa:55, spd:45, spe:95}, total:380, catch:"暗影森林 · 夜晚出现", skills:["暗袭","超声波","翅膀攻击","高速移动"], evolution:{ next:"叮叮恶魔", method:"使用暗之石进化" }, description:"倒挂在暗影森林的蝙蝠精灵。" },
             { id:21, name:"格斗小子", number:61, type:["格斗"], stage:"基础", race:{hp:65, atk:85, def:55, spa:30, spd:40, spe:70}, total:345, catch:"训练场 · 全天出现", skills:["空手劈","下盘踢","健美","看穿"], evolution:{ next:"武斗大师", method:"等级30进化" }, description:"热爱格斗的小精灵。" },
-            { id:22, name:"武斗大师", number:62, type:["格斗"], stage:"一阶", race:{hp:85, atk:115, def:75, spa:40, spd:60, spe:85}, total:460, catch:"格斗小子30级进化", skills:["近身战","飞膝踢","健美","快速防守"], evolution:{ prev:"格斗小子", next:"武圣", method:"等级48进化" }, description:"拳风凌厉，能劈开岩石。" },
+            { id:22, name:"武斗大师", number:62, type:["格斗"], stage:"一阶", race:{hp:85, atk:115, def:75, spa:40, spd:60, spe:85}, total:460, catch:"格斗小子30级进化", skills:["近身战","飞膝踢","健美","快速防守"], evolution:{ prev:"格斗小子", next:"武圣", method:"等级48进化" }, description:"拳风凌厉。" },
             { id:23, name:"毒尾蝎", number:70, type:["毒","虫"], stage:"基础", race:{hp:50, atk:70, def:65, spa:45, spd:55, spe:60}, total:345, catch:"毒雾沼泽 · 全天出现", skills:["毒针","虫咬","剧毒","毒菱"], evolution:{ next:"毒刺巨蝎", method:"等级28进化" }, description:"尾部的毒针能让对手麻痹。" },
-            { id:24, name:"毒刺巨蝎", number:71, type:["毒","虫"], stage:"一阶", race:{hp:70, atk:100, def:90, spa:55, spd:75, spe:80}, total:470, catch:"毒尾蝎28级进化", skills:["十字毒刃","致命针刺","毒液冲击","剑舞"], evolution:{ prev:"毒尾蝎", next:"毒蝎王", method:"等级42进化" }, description:"巨大的毒刺一击就能让大型精灵倒下。" },
+            { id:24, name:"毒刺巨蝎", number:71, type:["毒","虫"], stage:"一阶", race:{hp:70, atk:100, def:90, spa:55, spd:75, spe:80}, total:470, catch:"毒尾蝎28级进化", skills:["十字毒刃","致命针刺","毒液冲击","剑舞"], evolution:{ prev:"毒尾蝎", next:"毒蝎王", method:"等级42进化" }, description:"巨大的毒刺。" },
             { id:25, name:"小钢甲", number:80, type:["钢"], stage:"基础", race:{hp:60, atk:55, def:90, spa:35, spd:60, spe:30}, total:330, catch:"矿洞深处 · 全天出现", skills:["金属爪","铁壁","陀螺球","铁头"], evolution:{ next:"钢铁战甲", method:"等级32进化" }, description:"全身覆盖钢铁外壳。" },
-            { id:26, name:"钢铁战甲", number:81, type:["钢"], stage:"一阶", race:{hp:85, atk:80, def:130, spa:45, spd:85, spe:35}, total:460, catch:"小钢甲32级进化", skills:["重磅冲撞","铁壁","金属音","隐形岩"], evolution:{ prev:"小钢甲", next:"钢甲暴龙", method:"等级50进化" }, description:"厚重的钢甲能反弹敌人的攻击。" },
+            { id:26, name:"钢铁战甲", number:81, type:["钢"], stage:"一阶", race:{hp:85, atk:80, def:130, spa:45, spd:85, spe:35}, total:460, catch:"小钢甲32级进化", skills:["重磅冲撞","铁壁","金属音","隐形岩"], evolution:{ prev:"小钢甲", next:"钢甲暴龙", method:"等级50进化" }, description:"厚重的钢甲。" },
             { id:27, name:"鸣蝉", number:88, type:["虫","草"], stage:"基础", race:{hp:45, atk:40, def:50, spa:75, spd:60, spe:65}, total:335, catch:"碧绿丛林 · 晴天出现", skills:["虫鸣","魔法叶","光合作用","麻痹粉"], evolution:{ next:"翠翼蝉", method:"等级22进化" }, description:"藏在树梢间的蝉精灵。" },
-            { id:28, name:"翠翼蝉", number:89, type:["虫","草"], stage:"最终", race:{hp:65, atk:50, def:70, spa:110, spd:85, spe:100}, total:480, catch:"鸣蝉22级进化", skills:["虫鸣","飞叶风暴","蝶舞","终极吸取"], evolution:{ prev:"鸣蝉", method:"等级22进化" }, description:"翠绿的薄翼能反射日光。" },
-            { id:29, name:"三头地鼠", number:95, type:["地面"], stage:"基础", race:{hp:55, atk:80, def:45, spa:30, spd:40, spe:80}, total:330, catch:"干燥沙地 · 全天出现", skills:["挖洞","地震","沙暴","磨爪"], evolution:{ next:"多头地龙", method:"等级33进化" }, description:"三只地鼠一起行动。" },
+            { id:28, name:"翠翼蝉", number:89, type:["虫","草"], stage:"最终", race:{hp:65, atk:50, def:70, spa:110, spd:85, spe:100}, total:480, catch:"鸣蝉22级进化", skills:["虫鸣","飞叶风暴","蝶舞","终极吸取"], evolution:{ prev:"鸣蝉", method:"等级22进化" }, description:"森林的守护者。" },
+            { id:29, name:"三头地鼠", number:95, type:["地面"], stage:"基础", race:{hp:55, atk:80, def:45, spa:30, spd:40, spe:80}, total:330, catch:"干燥沙地 · 全天出现", skills:["挖洞","地震","沙暴","磨爪"], evolution:{ next:"多头地龙", method:"等级33进化" }, description:"挖洞速度极快。" },
             { id:30, name:"幻光蝶", number:100, type:["虫","超能力"], stage:"最终", race:{hp:70, atk:50, def:55, spa:120, spd:80, spe:115}, total:490, catch:"幻光森林 · 夜晚出现（稀有）", skills:["幻象光线","虫鸣","催眠粉","冥想"], evolution:{ prev:"幻光蛹", method:"亲密度足够时进化" }, description:"翅膀散发七彩光芒的稀有精灵。" }
+        ];
+
+        // 阵容数据（用于关联推荐）
+        const teamsData = [
+            { name:"新手开荒阵容", link:"../teams.html", pokemonIds:[1,2,3,8,9,10] },
+            { name:"雨天速推队", link:"../teams.html", pokemonIds:[5,2,7,9,3,8] },
+            { name:"恶翼强攻队", link:"../teams.html", pokemonIds:[4,7,10,6,5,2] },
+            { name:"冰控消耗队", link:"../teams.html", pokemonIds:[6,10,3,8,1,5] }
         ];
 
         const urlParams = new URLSearchParams(window.location.search);
@@ -98,6 +106,7 @@
             const card = document.getElementById('detailCard');
             if (!p) { card.innerHTML = '<h2>未找到该精灵</h2><p>请返回图鉴重新选择。</p>'; return; }
             document.title = `${p.name} · 精灵详情`;
+
             let evoHtml = '';
             if (p.evolution) {
                 if (p.evolution.prev) {
@@ -106,6 +115,16 @@
                     evoHtml = `<div class="evolution-chain"><div class="evo-stage"><strong>${p.name}</strong><br><small>当前</small></div><div class="evo-arrow">→</div><div class="evo-stage">${p.evolution.next}</div></div><p style="color:#aaa; margin-top:0.5rem;">进化方式：${p.evolution.method}</p>`;
                 }
             } else { evoHtml = '<p>无进化链信息</p>'; }
+
+            // 关联阵容
+            const relatedTeams = teamsData.filter(t => t.pokemonIds.includes(p.id));
+            let teamHtml = '';
+            if (relatedTeams.length > 0) {
+                teamHtml = relatedTeams.map(t => `<a href="${t.link}" style="display:inline-block; background:#1a1a2e; padding:0.4rem 1rem; border-radius:8px; margin:0.3rem; color:#0ef;">⚔️ ${t.name}</a>`).join('');
+            } else {
+                teamHtml = '<span style="color:#888;">暂无关联阵容，欢迎探索搭配</span>';
+            }
+
             card.innerHTML = `
                 <div class="pokemon-header"><div><span class="pokemon-id">No.${p.number}</span><div class="pokemon-name">${p.name}</div><div class="type-badges">${p.type.map(t => `<span class="type-badge type-${t}">${t}</span>`).join('')}</div></div></div>
                 <p class="description">${p.description}</p>
@@ -120,7 +139,7 @@
                 <div class="section"><h3>⚡ 技能池</h3><div class="skill-list">${p.skills.map(s => `<span class="skill-tag">${s}</span>`).join('')}</div></div>
                 <div class="section"><h3>🔄 进化链</h3>${evoHtml}</div>
                 <div class="section"><h3>📍 捕获信息</h3><p class="catch-info">${p.catch}</p></div>
-                <div class="section"><h3>📖 关联攻略（即将上线）</h3><p style="color:#888;">配队建议、培养路线等内容筹备中...</p></div>
+                <div class="section"><h3>⚔️ 推荐阵容</h3><div style="display:flex; flex-wrap:wrap; gap:0.3rem;">${teamHtml}</div></div>
             `;
         }
         renderDetail(pokemon);
